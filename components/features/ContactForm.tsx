@@ -134,7 +134,7 @@ export function ContactForm() {
 
         {status === 'success' && (
           <div className="rounded-lg bg-green-50 dark:bg-green-900/20 p-4 text-sm text-green-600 dark:text-green-400">
-            Thank you for your message! I'll get back to you soon.
+            Thank you for your message! I&apos;ll get back to you soon.
           </div>
         )}
 

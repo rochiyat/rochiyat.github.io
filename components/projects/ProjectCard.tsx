@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 
@@ -38,10 +39,11 @@ export function ProjectCard({
 
       {image && (
         <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden">
-          <img
+          <Image
             src={image}
             alt={title}
-            className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+            fill
+            className="object-cover transition-transform duration-300 hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           
