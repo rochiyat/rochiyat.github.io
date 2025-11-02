@@ -1,0 +1,475 @@
+---
+title: 'Getting Started with Next.js 14'
+date: '2023-10-15'
+author: 'Rochiyat'
+description: 'A comprehensive guide to building modern web applications with Next.js 14. Learn about App Router, Server Components, and more.'
+image: '/images/blog/nextjs-14.jpg'
+tags: ['Next.js', 'React', 'Tutorial', 'Web Development']
+---
+
+import { Card } from '@/components/ui/Card'
+
+# Getting Started with Next.js 14
+
+<div className="text-sm text-gray-600 dark:text-gray-400 mb-8">
+  Published on October 15, 2023 · 10 min read
+</div>
+
+Next.js 14 brings exciting new features and improvements to the already powerful React framework. In this comprehensive guide, we'll explore what makes Next.js 14 special and how to get started building modern web applications.
+
+## 📋 Table of Contents
+
+- [What is Next.js?](#what-is-nextjs)
+- [Why Choose Next.js 14?](#why-choose-nextjs-14)
+- [Getting Started](#getting-started)
+- [App Router vs Pages Router](#app-router-vs-pages-router)
+- [Server Components](#server-components)
+- [Data Fetching](#data-fetching)
+- [Best Practices](#best-practices)
+- [Conclusion](#conclusion)
+
+## What is Next.js?
+
+Next.js is a powerful React framework that enables you to build full-stack web applications with features like:
+
+- **Server-Side Rendering (SSR)** - Render pages on the server for better SEO and performance
+- **Static Site Generation (SSG)** - Pre-render pages at build time
+- **API Routes** - Build your backend API within the Next.js app
+- **File-based Routing** - Automatic routing based on file structure
+- **Image Optimization** - Automatic image optimization and lazy loading
+
+<Card className="my-6 p-6 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-600">
+  <p className="text-sm">
+    <strong>💡 Pro Tip:</strong> Next.js is production-ready out of the box and powers some of the 
+    world's largest websites including TikTok, Twitch, and Nike.
+  </p>
+</Card>
+
+## Why Choose Next.js 14?
+
+Next.js 14 introduces several groundbreaking features:
+
+### 🚀 Performance Improvements
+
+- **Turbopack (Beta)** - Up to 700x faster than Webpack
+- **Server Actions** - Simplified data mutations
+- **Partial Prerendering** - Faster page loads with streaming
+
+### 🎨 Developer Experience
+
+- **Improved Error Messages** - More helpful and actionable
+- **Better TypeScript Support** - Enhanced type inference
+- **Enhanced DevTools** - Better debugging capabilities
+
+### 🔒 Built-in Security
+
+- **Automatic CSRF Protection** - For Server Actions
+- **Content Security Policy** - Easy CSP configuration
+- **Secure Headers** - Security headers by default
+
+## Getting Started
+
+Let's create a new Next.js 14 project from scratch.
+
+### Prerequisites
+
+Make sure you have Node.js 18.17 or later installed:
+
+```bash
+node --version
+# Should output v18.17.0 or higher
+```
+
+### Creating a New Project
+
+Use the create-next-app command to set up a new project:
+
+```bash
+npx create-next-app@latest my-nextjs-app
+```
+
+You'll be prompted with several questions:
+
+```bash
+✔ Would you like to use TypeScript? Yes
+✔ Would you like to use ESLint? Yes
+✔ Would you like to use Tailwind CSS? Yes
+✔ Would you like to use `src/` directory? No
+✔ Would you like to use App Router? Yes
+✔ Would you like to customize the default import alias? No
+```
+
+<Card className="my-6 p-6 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-600">
+  <p className="text-sm">
+    <strong>⚠️ Important:</strong> Choose "Yes" for App Router to use Next.js 14's latest features. 
+    The Pages Router is still supported but the App Router is the recommended approach.
+  </p>
+</Card>
+
+### Project Structure
+
+After creation, your project will have this structure:
+
+```
+my-nextjs-app/
+├── app/
+│   ├── layout.tsx      # Root layout
+│   ├── page.tsx        # Home page
+│   └── globals.css     # Global styles
+├── public/
+│   └── images/         # Static assets
+├── next.config.js      # Next.js configuration
+├── package.json
+└── tsconfig.json       # TypeScript config
+```
+
+### Running the Development Server
+
+Navigate to your project and start the dev server:
+
+```bash
+cd my-nextjs-app
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser. You should see your new Next.js app running!
+
+## App Router vs Pages Router
+
+Next.js 14 supports two routing systems:
+
+### Pages Router (Legacy)
+
+```
+pages/
+├── index.tsx           # Route: /
+├── about.tsx           # Route: /about
+└── blog/
+    └── [slug].tsx      # Route: /blog/:slug
+```
+
+### App Router (Recommended)
+
+```
+app/
+├── page.tsx            # Route: /
+├── layout.tsx          # Shared layout
+├── about/
+│   └── page.tsx        # Route: /about
+└── blog/
+    └── [slug]/
+        └── page.tsx    # Route: /blog/:slug
+```
+
+The App Router offers several advantages:
+
+1. **Layouts** - Persistent layouts that don't re-render
+2. **Server Components** - Components that run on the server
+3. **Streaming** - Progressive rendering of UI
+4. **Colocation** - Components, tests, and styles in the same folder
+
+## Server Components
+
+One of the most powerful features in Next.js 14 is React Server Components.
+
+### What are Server Components?
+
+Server Components are React components that run only on the server. They offer several benefits:
+
+- **Reduced bundle size** - Component code doesn't ship to the client
+- **Direct database access** - Query databases directly in components
+- **Better security** - Keep sensitive data on the server
+- **Improved performance** - No client-side JavaScript needed
+
+### Example: Server Component
+
+```tsx
+// app/posts/page.tsx
+async function getPosts() {
+  const res = await fetch('https://api.example.com/posts')
+  return res.json()
+}
+
+export default async function PostsPage() {
+  const posts = await getPosts()
+  
+  return (
+    <div>
+      <h1>Blog Posts</h1>
+      {posts.map(post => (
+        <article key={post.id}>
+          <h2>{post.title}</h2>
+          <p>{post.excerpt}</p>
+        </article>
+      ))}
+    </div>
+  )
+}
+```
+
+### Client Components
+
+When you need interactivity, use Client Components:
+
+```tsx
+'use client'
+
+import { useState } from 'react'
+
+export default function Counter() {
+  const [count, setCount] = useState(0)
+  
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  )
+}
+```
+
+<Card className="my-6 p-6 bg-green-50 dark:bg-green-900/20 border-l-4 border-green-600">
+  <p className="text-sm">
+    <strong>✅ Best Practice:</strong> Use Server Components by default and only use Client Components 
+    when you need interactivity, browser APIs, or React hooks.
+  </p>
+</Card>
+
+## Data Fetching
+
+Next.js 14 simplifies data fetching with new patterns:
+
+### Fetching in Server Components
+
+```tsx
+// Automatic request deduplication
+async function getData() {
+  const res = await fetch('https://api.example.com/data', {
+    next: { revalidate: 3600 } // Revalidate every hour
+  })
+  return res.json()
+}
+
+export default async function Page() {
+  const data = await getData()
+  return <div>{data.title}</div>
+}
+```
+
+### Caching Strategies
+
+Next.js 14 offers multiple caching strategies:
+
+```tsx
+// Static - Cache indefinitely (default)
+fetch('https://api.example.com/data')
+
+// Revalidate - Cache with time-based revalidation
+fetch('https://api.example.com/data', {
+  next: { revalidate: 60 }
+})
+
+// No cache - Fetch fresh data every time
+fetch('https://api.example.com/data', {
+  cache: 'no-store'
+})
+```
+
+### Server Actions
+
+Server Actions enable you to mutate data on the server:
+
+```tsx
+// app/actions.ts
+'use server'
+
+export async function createPost(formData: FormData) {
+  const title = formData.get('title')
+  const content = formData.get('content')
+  
+  // Insert into database
+  await db.posts.create({
+    data: { title, content }
+  })
+}
+```
+
+```tsx
+// app/new-post/page.tsx
+import { createPost } from '../actions'
+
+export default function NewPostPage() {
+  return (
+    <form action={createPost}>
+      <input name="title" placeholder="Title" required />
+      <textarea name="content" placeholder="Content" required />
+      <button type="submit">Create Post</button>
+    </form>
+  )
+}
+```
+
+## Best Practices
+
+Here are some essential best practices for Next.js 14 development:
+
+### 1. Component Organization
+
+```
+app/
+└── products/
+    ├── page.tsx              # Route component
+    ├── layout.tsx            # Layout
+    ├── loading.tsx           # Loading UI
+    ├── error.tsx             # Error handling
+    └── components/           # Local components
+        ├── ProductCard.tsx
+        └── ProductList.tsx
+```
+
+### 2. Image Optimization
+
+Always use the Next.js Image component:
+
+```tsx
+import Image from 'next/image'
+
+export default function Avatar() {
+  return (
+    <Image
+      src="/avatar.jpg"
+      alt="Avatar"
+      width={200}
+      height={200}
+      priority
+    />
+  )
+}
+```
+
+### 3. Metadata and SEO
+
+Define metadata for better SEO:
+
+```tsx
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'My Page Title',
+  description: 'My page description',
+  openGraph: {
+    title: 'My Page Title',
+    description: 'My page description',
+    images: ['/og-image.jpg'],
+  },
+}
+
+export default function Page() {
+  return <div>Content</div>
+}
+```
+
+### 4. Error Handling
+
+Create error boundaries for better error handling:
+
+```tsx
+// app/error.tsx
+'use client'
+
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error
+  reset: () => void
+}) {
+  return (
+    <div>
+      <h2>Something went wrong!</h2>
+      <button onClick={() => reset()}>Try again</button>
+    </div>
+  )
+}
+```
+
+### 5. Loading States
+
+Provide loading UI for better UX:
+
+```tsx
+// app/loading.tsx
+export default function Loading() {
+  return <div>Loading...</div>
+}
+```
+
+## Conclusion
+
+Next.js 14 represents a significant leap forward in web development. With features like Server Components, improved performance, and simplified data fetching, it's easier than ever to build fast, scalable web applications.
+
+### Key Takeaways
+
+- ✅ Next.js 14 offers significant performance improvements
+- ✅ Server Components reduce bundle size and improve performance
+- ✅ App Router is the recommended routing approach
+- ✅ Built-in optimizations for images, fonts, and scripts
+- ✅ Simplified data fetching and mutations with Server Actions
+
+### Next Steps
+
+Ready to dive deeper? Here are some resources:
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+  <Card hover>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">📚 Official Documentation</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+      Explore the complete Next.js documentation
+    </p>
+    <a 
+      href="https://nextjs.org/docs" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400"
+    >
+      Visit Docs →
+    </a>
+  </Card>
+  
+  <Card hover>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">🎥 Video Tutorial</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+      Watch the official Next.js 14 announcement
+    </p>
+    <a 
+      href="https://www.youtube.com/watch?v=gfU1iZnjRZM" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400"
+    >
+      Watch Video →
+    </a>
+  </Card>
+</div>
+
+### Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Next.js GitHub Repository](https://github.com/vercel/next.js)
+- [Next.js Discord Community](https://discord.gg/nextjs)
+- [Vercel Deployment Platform](https://vercel.com)
+
+---
+
+<div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+  <p className="text-gray-600 dark:text-gray-400">
+    <strong>Found this helpful?</strong> Share it with your network and follow me for more web development content!
+  </p>
+  <div className="flex gap-4 mt-4">
+    <a href="https://twitter.com/rochiyat" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">
+      Share on Twitter
+    </a>
+    <a href="https://linkedin.com/in/rochiyat" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">
+      Share on LinkedIn
+    </a>
+  </div>
+</div>

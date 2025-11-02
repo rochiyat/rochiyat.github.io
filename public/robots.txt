@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rochiyat.github.io/sitemap.xml

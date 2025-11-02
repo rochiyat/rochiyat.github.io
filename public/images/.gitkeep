@@ -1,0 +1,30 @@
+# Images Directory
+
+Place your images here:
+
+## Structure
+
+```
+images/
+├── avatar.jpg           # Your profile picture
+├── og-image.png         # Open Graph image for social sharing
+├── blog/                # Blog post images
+│   ├── nextjs-14.jpg
+│   └── ...
+└── projects/            # Project screenshots
+    ├── ecommerce.jpg
+    ├── taskapp.jpg
+    └── ...
+```
+
+## Image Guidelines
+
+- Use optimized images (WebP or JPEG)
+- Recommended sizes:
+  - Avatar: 200x200px
+  - OG Image: 1200x630px
+  - Blog Headers: 1200x600px
+  - Project Screenshots: 1200x800px
+
+- Keep file sizes under 200KB when possible
+- Use descriptive filenames

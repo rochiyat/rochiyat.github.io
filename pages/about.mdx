@@ -1,0 +1,347 @@
+import { Card } from '@/components/ui/Card'
+import { TechStack } from '@/components/projects/TechStack'
+
+# 👤 About Me
+
+<div className="flex flex-col md:flex-row gap-8 items-start my-8">
+  <div className="md:w-1/3">
+    <div className="relative w-48 h-48 mx-auto md:mx-0">
+      <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-500 to-purple-600 p-1">
+        <div className="w-full h-full rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center text-6xl">
+          👨‍💻
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div className="md:w-2/3">
+    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+      Hello! I'm Rochiyat
+    </h2>
+    <p className="text-gray-600 dark:text-gray-400 mb-4">
+      I'm a Full Stack Developer with 5+ years of experience building web applications. 
+      I specialize in React, Next.js, Node.js, and cloud technologies. I'm passionate about 
+      creating efficient, scalable solutions and sharing knowledge with the developer community.
+    </p>
+    <p className="text-gray-600 dark:text-gray-400">
+      When I'm not coding, you'll find me writing technical articles, contributing to open source, 
+      or exploring new technologies. I believe in continuous learning and staying up-to-date 
+      with the latest industry trends.
+    </p>
+  </div>
+</div>
+
+## 💼 What I Do
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+  <Card>
+    <div className="text-3xl mb-4">🎨</div>
+    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+      Frontend Development
+    </h3>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Building responsive and intuitive user interfaces with React, Next.js, and modern CSS frameworks.
+    </p>
+  </Card>
+  
+  <Card>
+    <div className="text-3xl mb-4">⚙️</div>
+    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+      Backend Development
+    </h3>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Creating robust APIs and server-side applications using Node.js, Python, and various databases.
+    </p>
+  </Card>
+  
+  <Card>
+    <div className="text-3xl mb-4">☁️</div>
+    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+      Cloud & DevOps
+    </h3>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Deploying and managing applications on AWS, implementing CI/CD pipelines, and containerization.
+    </p>
+  </Card>
+</div>
+
+## 🛠️ Skills & Expertise
+
+<div className="my-8">
+  <TechStack
+    categories={[
+      {
+        name: "Frontend",
+        skills: [
+          { name: "React / Next.js", icon: "⚛️", level: 95 },
+          { name: "TypeScript", icon: "📘", level: 90 },
+          { name: "Tailwind CSS", icon: "🎨", level: 92 },
+          { name: "Vue.js", icon: "💚", level: 85 }
+        ]
+      },
+      {
+        name: "Backend",
+        skills: [
+          { name: "Node.js", icon: "🟢", level: 90 },
+          { name: "Python", icon: "🐍", level: 85 },
+          { name: "Go", icon: "🔵", level: 75 },
+          { name: "REST APIs", icon: "🔌", level: 93 }
+        ]
+      },
+      {
+        name: "Database",
+        skills: [
+          { name: "PostgreSQL", icon: "🐘", level: 88 },
+          { name: "MongoDB", icon: "🍃", level: 85 },
+          { name: "Redis", icon: "🔴", level: 80 },
+          { name: "MySQL", icon: "🐬", level: 82 }
+        ]
+      },
+      {
+        name: "DevOps",
+        skills: [
+          { name: "Docker", icon: "🐳", level: 87 },
+          { name: "AWS", icon: "☁️", level: 83 },
+          { name: "GitHub Actions", icon: "⚙️", level: 90 },
+          { name: "Linux", icon: "🐧", level: 85 }
+        ]
+      }
+    ]}
+  />
+</div>
+
+## 💼 Experience
+
+<div className="space-y-8 my-8">
+  <Card>
+    <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-2">
+      <div>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+          Senior Full Stack Developer
+        </h3>
+        <p className="text-blue-600 dark:text-blue-400">Tech Company Inc.</p>
+      </div>
+      <p className="text-sm text-gray-600 dark:text-gray-400">2021 - Present</p>
+    </div>
+    <ul className="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
+      <li>Led development of microservices architecture serving 100K+ users</li>
+      <li>Implemented CI/CD pipelines reducing deployment time by 60%</li>
+      <li>Mentored junior developers and conducted code reviews</li>
+    </ul>
+  </Card>
+  
+  <Card>
+    <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-2">
+      <div>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+          Full Stack Developer
+        </h3>
+        <p className="text-blue-600 dark:text-blue-400">Startup Solutions</p>
+      </div>
+      <p className="text-sm text-gray-600 dark:text-gray-400">2019 - 2021</p>
+    </div>
+    <ul className="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
+      <li>Built and maintained multiple client-facing web applications</li>
+      <li>Integrated third-party APIs and payment systems</li>
+      <li>Optimized application performance and database queries</li>
+    </ul>
+  </Card>
+  
+  <Card>
+    <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-2">
+      <div>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+          Junior Web Developer
+        </h3>
+        <p className="text-blue-600 dark:text-blue-400">Digital Agency</p>
+      </div>
+      <p className="text-sm text-gray-600 dark:text-gray-400">2018 - 2019</p>
+    </div>
+    <ul className="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
+      <li>Developed responsive websites and landing pages</li>
+      <li>Collaborated with designers to implement pixel-perfect designs</li>
+      <li>Maintained and updated existing client websites</li>
+    </ul>
+  </Card>
+</div>
+
+## 🎓 Education
+
+<Card className="my-8">
+  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+    Bachelor of Computer Science
+  </h3>
+  <p className="text-blue-600 dark:text-blue-400 mb-2">University of Technology</p>
+  <p className="text-sm text-gray-600 dark:text-gray-400">
+    Graduated: 2018 | GPA: 3.8/4.0
+  </p>
+</Card>
+
+## 🏆 Certifications
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white">AWS Certified Developer</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Amazon Web Services</p>
+  </Card>
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white">Professional Scrum Master I</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Scrum.org</p>
+  </Card>
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white">MongoDB Developer</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">MongoDB University</p>
+  </Card>
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white">Meta Front-End Developer</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Coursera</p>
+  </Card>
+</div>
+
+## 🌟 Open Source Contributions
+
+<div className="my-8 space-y-4">
+  <Card>
+    <div className="flex items-start justify-between">
+      <div>
+        <h4 className="font-bold text-gray-900 dark:text-white">next-themes</h4>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          Contributed theme switching improvements and bug fixes
+        </p>
+      </div>
+      <span className="text-sm text-gray-500">15 PRs</span>
+    </div>
+  </Card>
+  
+  <Card>
+    <div className="flex items-start justify-between">
+      <div>
+        <h4 className="font-bold text-gray-900 dark:text-white">tailwindcss</h4>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          Documentation improvements and community support
+        </p>
+      </div>
+      <span className="text-sm text-gray-500">8 PRs</span>
+    </div>
+  </Card>
+  
+  <Card>
+    <div className="flex items-start justify-between">
+      <div>
+        <h4 className="font-bold text-gray-900 dark:text-white">react-query</h4>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          Bug fixes and TypeScript type improvements
+        </p>
+      </div>
+      <span className="text-sm text-gray-500">5 PRs</span>
+    </div>
+  </Card>
+</div>
+
+## 🎤 Speaking & Workshops
+
+<div className="my-8">
+  <ul className="space-y-4">
+    <li className="flex gap-4">
+      <span className="text-2xl">🎯</span>
+      <div>
+        <h4 className="font-bold text-gray-900 dark:text-white">Building Modern Web Apps with Next.js</h4>
+        <p className="text-sm text-gray-600 dark:text-gray-400">React Conference 2023</p>
+      </div>
+    </li>
+    <li className="flex gap-4">
+      <span className="text-2xl">🎯</span>
+      <div>
+        <h4 className="font-bold text-gray-900 dark:text-white">TypeScript Best Practices Workshop</h4>
+        <p className="text-sm text-gray-600 dark:text-gray-400">Developer Meetup 2022</p>
+      </div>
+    </li>
+    <li className="flex gap-4">
+      <span className="text-2xl">🎯</span>
+      <div>
+        <h4 className="font-bold text-gray-900 dark:text-white">Introduction to GraphQL</h4>
+        <p className="text-sm text-gray-600 dark:text-gray-400">Tech Talk Series 2021</p>
+      </div>
+    </li>
+  </ul>
+</div>
+
+## 🎮 Hobbies & Interests
+
+<div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
+  <Card className="text-center">
+    <div className="text-3xl mb-2">📚</div>
+    <p className="text-sm font-medium text-gray-900 dark:text-white">Reading</p>
+  </Card>
+  <Card className="text-center">
+    <div className="text-3xl mb-2">✈️</div>
+    <p className="text-sm font-medium text-gray-900 dark:text-white">Traveling</p>
+  </Card>
+  <Card className="text-center">
+    <div className="text-3xl mb-2">📷</div>
+    <p className="text-sm font-medium text-gray-900 dark:text-white">Photography</p>
+  </Card>
+  <Card className="text-center">
+    <div className="text-3xl mb-2">🎮</div>
+    <p className="text-sm font-medium text-gray-900 dark:text-white">Gaming</p>
+  </Card>
+</div>
+
+## 💡 Available For
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">💼 Freelance Projects</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Full-stack development, consulting, and technical advisory
+    </p>
+  </Card>
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">🎤 Speaking Engagements</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Conference talks, workshops, and webinars
+    </p>
+  </Card>
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">📝 Technical Writing</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Blog posts, tutorials, and documentation
+    </p>
+  </Card>
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">🤝 Mentorship</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Code reviews, career guidance, and pair programming
+    </p>
+  </Card>
+</div>
+
+## 📫 Let's Connect
+
+<Card className="text-center p-8 my-8 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+  <p className="text-gray-600 dark:text-gray-400 mb-6">
+    Feel free to reach out if you want to collaborate on a project, need help with something, or just want to connect!
+  </p>
+  <div className="flex flex-wrap justify-center gap-4">
+    <a href="https://github.com/rochiyat" target="_blank" rel="noopener noreferrer">
+      <button className="px-4 py-2 bg-gray-900 dark:bg-gray-700 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors">
+        GitHub
+      </button>
+    </a>
+    <a href="https://twitter.com/rochiyat" target="_blank" rel="noopener noreferrer">
+      <button className="px-4 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors">
+        Twitter
+      </button>
+    </a>
+    <a href="https://linkedin.com/in/rochiyat" target="_blank" rel="noopener noreferrer">
+      <button className="px-4 py-2 bg-blue-700 text-white rounded-lg font-medium hover:bg-blue-800 transition-colors">
+        LinkedIn
+      </button>
+    </a>
+    <a href="/contact">
+      <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+        Contact Me
+      </button>
+    </a>
+  </div>
+</Card>

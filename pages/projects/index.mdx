@@ -1,0 +1,208 @@
+import { ProjectCard } from '@/components/projects/ProjectCard'
+
+# 💼 Projects
+
+<p className="text-lg text-gray-600 dark:text-gray-400 my-6">
+  Here's a collection of projects I've worked on, ranging from web applications to open-source contributions. 
+  Each project showcases different technologies and problem-solving approaches.
+</p>
+
+## 🌟 Featured Projects
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+  <ProjectCard
+    title="E-Commerce Platform"
+    description="A full-featured e-commerce platform with product catalog, shopping cart, checkout flow, and admin dashboard. Built with Next.js 14, featuring server-side rendering, Stripe payment integration, and PostgreSQL database."
+    image="/images/projects/ecommerce.jpg"
+    tags={["Next.js", "TypeScript", "Stripe", "PostgreSQL", "Tailwind CSS"]}
+    demoUrl="https://demo.example.com"
+    repoUrl="https://github.com/rochiyat/ecommerce"
+    featured={true}
+    stats={{ stars: 234, forks: 45 }}
+  />
+  
+  <ProjectCard
+    title="Task Management App"
+    description="Collaborative task management application with real-time updates using Socket.io. Features include drag-and-drop interface, team collaboration, file attachments, and activity tracking."
+    image="/images/projects/taskapp.jpg"
+    tags={["React", "Node.js", "Socket.io", "MongoDB", "Material-UI"]}
+    demoUrl="https://tasks.example.com"
+    repoUrl="https://github.com/rochiyat/task-app"
+    featured={true}
+    stats={{ stars: 189, forks: 32 }}
+  />
+</div>
+
+## 🚀 Web Applications
+
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
+  <ProjectCard
+    title="Social Media Dashboard"
+    description="Analytics dashboard for social media metrics. Track engagement, followers, and performance across multiple platforms with beautiful charts and insights."
+    tags={["Vue.js", "Chart.js", "Express", "MySQL"]}
+    repoUrl="https://github.com/rochiyat/social-dashboard"
+    stats={{ stars: 156, forks: 28 }}
+  />
+  
+  <ProjectCard
+    title="Weather Forecast App"
+    description="Real-time weather application with 7-day forecast, location search, and weather alerts. Features beautiful UI with weather animations and offline support."
+    tags={["React", "PWA", "OpenWeather API", "Styled Components"]}
+    demoUrl="https://weather.example.com"
+    repoUrl="https://github.com/rochiyat/weather-app"
+    stats={{ stars: 98, forks: 21 }}
+  />
+  
+  <ProjectCard
+    title="Blog CMS"
+    description="Headless CMS for managing blog content. Features include markdown editor, media library, SEO optimization, and RESTful API."
+    tags={["Next.js", "Prisma", "PostgreSQL", "S3"]}
+    repoUrl="https://github.com/rochiyat/blog-cms"
+    stats={{ stars: 145, forks: 34 }}
+  />
+  
+  <ProjectCard
+    title="Recipe Finder"
+    description="Discover and save your favorite recipes. Search by ingredients, dietary restrictions, and cuisine type. Features meal planning and shopping lists."
+    tags={["React", "Firebase", "Spoonacular API", "Chakra UI"]}
+    demoUrl="https://recipes.example.com"
+    repoUrl="https://github.com/rochiyat/recipe-finder"
+    stats={{ stars: 112, forks: 25 }}
+  />
+  
+  <ProjectCard
+    title="URL Shortener"
+    description="Fast and reliable URL shortening service with custom aliases, QR codes, and click analytics. Built for high performance and scalability."
+    tags={["Go", "Redis", "PostgreSQL", "React"]}
+    demoUrl="https://short.example.com"
+    repoUrl="https://github.com/rochiyat/url-shortener"
+    stats={{ stars: 178, forks: 42 }}
+  />
+  
+  <ProjectCard
+    title="Portfolio Generator"
+    description="Create beautiful portfolio websites without coding. Choose from templates, customize colors and content, and deploy instantly."
+    tags={["Next.js", "TypeScript", "Vercel", "Supabase"]}
+    demoUrl="https://portfolios.example.com"
+    repoUrl="https://github.com/rochiyat/portfolio-gen"
+    stats={{ stars: 203, forks: 56 }}
+  />
+</div>
+
+## 🔧 Tools & Utilities
+
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
+  <ProjectCard
+    title="React Component Library"
+    description="Reusable React components library with TypeScript support. Includes buttons, forms, modals, and more with full documentation and storybook."
+    tags={["React", "TypeScript", "Storybook", "Rollup"]}
+    repoUrl="https://github.com/rochiyat/react-components"
+    stats={{ stars: 267, forks: 68 }}
+  />
+  
+  <ProjectCard
+    title="API Testing Tool"
+    description="REST API testing tool with collection management, environment variables, and automated testing. Similar to Postman but lightweight."
+    tags={["Electron", "React", "Node.js", "IndexedDB"]}
+    repoUrl="https://github.com/rochiyat/api-tester"
+    stats={{ stars: 134, forks: 29 }}
+  />
+  
+  <ProjectCard
+    title="Code Snippet Manager"
+    description="Organize and search your code snippets with syntax highlighting. Supports multiple languages and cloud sync."
+    tags={["Vue.js", "Electron", "SQLite", "Monaco Editor"]}
+    repoUrl="https://github.com/rochiyat/snippet-manager"
+    stats={{ stars: 89, forks: 18 }}
+  />
+</div>
+
+## 📱 Mobile Applications
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+  <ProjectCard
+    title="Expense Tracker"
+    description="Track your expenses and income with beautiful charts and insights. Set budgets, categorize transactions, and export reports."
+    tags={["React Native", "Expo", "SQLite", "Chart.js"]}
+    repoUrl="https://github.com/rochiyat/expense-tracker"
+    stats={{ stars: 156, forks: 38 }}
+  />
+  
+  <ProjectCard
+    title="Fitness Tracker"
+    description="Log workouts, track progress, and achieve fitness goals. Includes exercise library, progress photos, and workout plans."
+    tags={["React Native", "Firebase", "Expo", "Redux"]}
+    repoUrl="https://github.com/rochiyat/fitness-tracker"
+    stats={{ stars: 142, forks: 31 }}
+  />
+</div>
+
+## 🌐 Open Source Contributions
+
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
+  <ProjectCard
+    title="next-themes"
+    description="Contributed theme switching improvements and bug fixes to the popular Next.js theme management library."
+    tags={["Next.js", "React", "TypeScript"]}
+    repoUrl="https://github.com/pacocoursey/next-themes"
+  />
+  
+  <ProjectCard
+    title="tailwindcss"
+    description="Documentation improvements and community support for the utility-first CSS framework."
+    tags={["CSS", "Documentation"]}
+    repoUrl="https://github.com/tailwindlabs/tailwindcss"
+  />
+  
+  <ProjectCard
+    title="react-query"
+    description="Bug fixes and TypeScript type improvements for the data-fetching library."
+    tags={["React", "TypeScript"]}
+    repoUrl="https://github.com/tanstack/react-query"
+  />
+</div>
+
+## 📊 Project Stats
+
+<div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
+  <div className="p-6 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-center">
+    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">20+</div>
+    <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">Total Projects</div>
+  </div>
+  <div className="p-6 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-center">
+    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">2.5k+</div>
+    <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">GitHub Stars</div>
+  </div>
+  <div className="p-6 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-center">
+    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">500+</div>
+    <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">Forks</div>
+  </div>
+  <div className="p-6 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 text-center">
+    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">15+</div>
+    <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">Contributors</div>
+  </div>
+</div>
+
+## 🤝 Collaborate
+
+<div className="p-8 my-8 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 text-center">
+  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+    Interested in Collaboration?
+  </h3>
+  <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
+    I'm always open to interesting projects and collaborations. Whether you have an idea, 
+    need help with an existing project, or want to contribute to mine, let's connect!
+  </p>
+  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+    <a href="/contact">
+      <button className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+        Get In Touch
+      </button>
+    </a>
+    <a href="https://github.com/rochiyat" target="_blank" rel="noopener noreferrer">
+      <button className="px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-lg font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
+        View GitHub Profile
+      </button>
+    </a>
+  </div>
+</div>

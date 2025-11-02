@@ -1,0 +1,37 @@
+{
+  "index": {
+    "title": "Home",
+    "type": "page",
+    "display": "hidden",
+    "theme": {
+      "breadcrumb": false,
+      "sidebar": false,
+      "toc": false,
+      "pagination": false
+    }
+  },
+  "about": {
+    "title": "👤 About",
+    "type": "page"
+  },
+  "projects": {
+    "title": "💼 Projects",
+    "type": "page"
+  },
+  "blog": {
+    "title": "📝 Blog",
+    "type": "page"
+  },
+  "docs": {
+    "title": "📚 Docs",
+    "type": "page"
+  },
+  "snippets": {
+    "title": "🔧 Snippets",
+    "type": "page"
+  },
+  "contact": {
+    "title": "📧 Contact",
+    "type": "page"
+  }
+}

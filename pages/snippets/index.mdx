@@ -1,0 +1,219 @@
+import { Card } from '@/components/ui/Card'
+
+# 🔧 Code Snippets
+
+A collection of useful code snippets, utilities, and helper functions that I frequently use in my projects. Feel free to copy and use them in your own work!
+
+## 📦 Categories
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+  <a href="/snippets/react-hooks">
+    <Card hover className="text-center">
+      <div className="text-3xl mb-3">⚛️</div>
+      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+        React Hooks
+      </h3>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        Custom hooks for common use cases
+      </p>
+    </Card>
+  </a>
+  
+  <Card hover className="text-center">
+    <div className="text-3xl mb-3">📘</div>
+    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+      TypeScript
+    </h3>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Type utilities and helpers
+    </p>
+  </Card>
+  
+  <Card hover className="text-center">
+    <div className="text-3xl mb-3">🎨</div>
+    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+      Tailwind CSS
+    </h3>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Custom utilities and components
+    </p>
+  </Card>
+  
+  <Card hover className="text-center">
+    <div className="text-3xl mb-3">🟢</div>
+    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+      Node.js
+    </h3>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Backend utilities and middleware
+    </p>
+  </Card>
+  
+  <Card hover className="text-center">
+    <div className="text-3xl mb-3">🔌</div>
+    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+      API Utilities
+    </h3>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Fetch wrappers and helpers
+    </p>
+  </Card>
+  
+  <Card hover className="text-center">
+    <div className="text-3xl mb-3">🛠️</div>
+    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+      General Utils
+    </h3>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Date, string, and array helpers
+    </p>
+  </Card>
+</div>
+
+## 🔥 Most Popular
+
+### useDebounce Hook
+
+Debounce a value with a delay.
+
+```typescript
+import { useEffect, useState } from 'react'
+
+export function useDebounce<T>(value: T, delay: number = 500): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
+
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [value, delay])
+
+  return debouncedValue
+}
+
+// Usage
+const SearchComponent = () => {
+  const [searchTerm, setSearchTerm] = useState('')
+  const debouncedSearch = useDebounce(searchTerm, 500)
+
+  useEffect(() => {
+    // API call with debounced value
+    if (debouncedSearch) {
+      fetchResults(debouncedSearch)
+    }
+  }, [debouncedSearch])
+
+  return (
+    <input
+      type="text"
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+    />
+  )
+}
+```
+
+### cn (ClassNames Utility)
+
+Merge Tailwind CSS classes conditionally.
+
+```typescript
+export function cn(...classes: (string | undefined | null | false)[]): string {
+  return classes.filter(Boolean).join(' ')
+}
+
+// Usage
+<div className={cn(
+  'base-class',
+  isActive && 'active-class',
+  isDisabled && 'disabled-class'
+)} />
+```
+
+### Format Date
+
+Format dates in a human-readable way.
+
+```typescript
+export function formatDate(date: string | Date): string {
+  const d = new Date(date)
+  return d.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
+// Usage
+formatDate('2023-10-15') // "October 15, 2023"
+```
+
+### API Fetch Wrapper
+
+Type-safe fetch wrapper with error handling.
+
+```typescript
+export async function fetcher<T>(
+  url: string,
+  options?: RequestInit
+): Promise<T> {
+  const response = await fetch(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+    ...options,
+  })
+
+  if (!response.ok) {
+    throw new Error(`API Error: ${response.statusText}`)
+  }
+
+  return response.json()
+}
+
+// Usage
+const data = await fetcher<User[]>('/api/users')
+```
+
+### Truncate Text
+
+Truncate text to a specific length.
+
+```typescript
+export function truncate(text: string, length: number = 100): string {
+  if (text.length <= length) return text
+  return text.slice(0, length) + '...'
+}
+
+// Usage
+truncate('This is a very long text...', 20)
+// "This is a very long..."
+```
+
+## 📚 Browse All Snippets
+
+Use the sidebar to explore snippets by category, or use the search function to find specific solutions.
+
+## 🤝 Contributing
+
+Have a useful snippet to share? Feel free to:
+
+- Submit a pull request
+- Suggest improvements
+- Report issues
+
+## 💡 Usage Tips
+
+- All snippets are TypeScript-ready
+- Copy button available for each snippet
+- Includes usage examples
+- Production-tested code
+
+---
+
+Happy coding! 🎉
