@@ -20,8 +20,8 @@ const config: DocsThemeConfig = {
   docsRepositoryBase: 'https://github.com/rochiyat/rochiyat.github.io',
   footer: {
     text: (
-      <div style={{ width: '100%' }}>
-        <div style={{ 
+      <span style={{ width: '100%' }}>
+        <span style={{ 
           display: 'flex', 
           justifyContent: 'space-between', 
           alignItems: 'center',
@@ -31,7 +31,7 @@ const config: DocsThemeConfig = {
           <span>
             © {new Date().getFullYear()} Rochiyat. All rights reserved.
           </span>
-          <div style={{ display: 'flex', gap: '1rem' }}>
+          <span style={{ display: 'flex', gap: '1rem' }}>
             <a 
               href="https://github.com/rochiyat" 
               target="_blank" 
@@ -62,9 +62,9 @@ const config: DocsThemeConfig = {
             >
               LinkedIn
             </a>
-          </div>
-        </div>
-      </div>
+          </span>
+        </span>
+      </span>
     ),
   },
   head: (
