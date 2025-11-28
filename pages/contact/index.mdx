@@ -1,0 +1,203 @@
+import { ContactForm } from '@/components/features/ContactForm'
+import { Card } from '@/components/ui/Card'
+
+# 📧 Get In Touch
+
+<div className="max-w-4xl my-8">
+  <div className="text-lg text-gray-600 dark:text-gray-400 mb-8">
+    Have a project in mind? Want to discuss an opportunity? Or just want to say hi? 
+    I'd love to hear from you. Fill out the form below and I'll get back to you as soon as possible.
+  </div>
+</div>
+
+<div className="grid grid-cols-1 lg:grid-cols-3 gap-8 my-8">
+  <div className="lg:col-span-2">
+    <ContactForm />
+  </div>
+  
+  <div className="space-y-6">
+    <Card>
+      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+        📍 Location
+      </h3>
+      <div className="text-gray-600 dark:text-gray-400">
+        Bogor, West Java, Indonesia
+      </div>
+    </Card>
+    
+    <Card>
+      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+        📧 Email
+      </h3>
+      <a 
+        href="mailto:your.email@example.com"
+        className="text-blue-600 dark:text-blue-400 hover:underline"
+      >
+        your.email@example.com
+      </a>
+    </Card>
+    
+    <Card>
+      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+        ⏰ Availability
+      </h3>
+      <div className="text-gray-600 dark:text-gray-400 mb-2">
+        Available for:
+      </div>
+      <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+        <li>✅ Freelance Projects</li>
+        <li>✅ Consulting</li>
+        <li>✅ Speaking Engagements</li>
+        <li>✅ Technical Writing</li>
+      </ul>
+    </Card>
+    
+    <Card>
+      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+        💬 Response Time
+      </h3>
+      <div className="text-gray-600 dark:text-gray-400">
+        I typically respond within 24-48 hours on business days.
+      </div>
+    </Card>
+  </div>
+</div>
+
+## 🌐 Social Links
+
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 my-8">
+  <a href="https://github.com/rochiyat" target="_blank" rel="noopener noreferrer">
+    <Card hover className="text-center">
+      <div className="text-3xl mb-2">🔗</div>
+      <h4 className="font-bold text-gray-900 dark:text-white">GitHub</h4>
+      <div className="text-sm text-gray-600 dark:text-gray-400">@rochiyat</div>
+    </Card>
+  </a>
+  
+  <a href="https://www.instagram.com/rochiyat/" target="_blank" rel="noopener noreferrer">
+    <Card hover className="text-center">
+      <div className="text-3xl mb-2">📸</div>
+      <h4 className="font-bold text-gray-900 dark:text-white">Instagram</h4>
+      <div className="text-sm text-gray-600 dark:text-gray-400">@rochiyat</div>
+    </Card>
+  </a>
+  
+  <a href="https://linkedin.com/in/rochiyat" target="_blank" rel="noopener noreferrer">
+    <Card hover className="text-center">
+      <div className="text-3xl mb-2">💼</div>
+      <h4 className="font-bold text-gray-900 dark:text-white">LinkedIn</h4>
+      <div className="text-sm text-gray-600 dark:text-gray-400">in/rochiyat</div>
+    </Card>
+  </a>
+  
+  <a href="https://www.rochiyat.my.id/" target="_blank" rel="noopener noreferrer">
+    <Card hover className="text-center">
+      <div className="text-3xl mb-2">📝</div>
+      <h4 className="font-bold text-gray-900 dark:text-white">Blog</h4>
+      <div className="text-sm text-gray-600 dark:text-gray-400">rochiyat.my.id</div>
+    </Card>
+  </a>
+</div>
+
+## 💡 What I Can Help With
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-3">🚀 Project Development</h4>
+    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+      <li>• Full-stack web applications (Java, NodeJS, React)</li>
+      <li>• Integration Server Web Methods</li>
+      <li>• Database architecture and management</li>
+      <li>• Website design and development</li>
+    </ul>
+  </Card>
+  
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-3">🎯 IT Consulting</h4>
+    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+      <li>• IT Services and IT Consulting</li>
+      <li>• Networking solutions</li>
+      <li>• Technology stack selection</li>
+      <li>• Best practices guidance</li>
+    </ul>
+  </Card>
+  
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-3">📝 Content Creation</h4>
+    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+      <li>• Technical blog posts</li>
+      <li>• Tutorial videos</li>
+      <li>• Documentation writing</li>
+      <li>• Code examples</li>
+    </ul>
+  </Card>
+  
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-3">🤝 Mentorship</h4>
+    <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+      <li>• Career guidance</li>
+      <li>• Code review sessions</li>
+      <li>• Pair programming</li>
+      <li>• Interview preparation</li>
+    </ul>
+  </Card>
+</div>
+
+## ❓ FAQ
+
+<div className="space-y-4 my-8">
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+      What's your typical project timeline?
+    </h4>
+      <div className="text-sm text-gray-600 dark:text-gray-400">
+        Project timelines vary based on scope and complexity. Small projects typically take 2-4 weeks, 
+        while larger applications may take 2-3 months. I'll provide a detailed timeline after our initial discussion.
+      </div>
+  </Card>
+  
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+      Do you work with teams or solo clients?
+    </h4>
+      <div className="text-sm text-gray-600 dark:text-gray-400">
+        Both! I'm comfortable working with startups, established companies, and individual entrepreneurs. 
+        I can integrate with existing teams or handle projects independently.
+      </div>
+  </Card>
+  
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+      What's your hourly rate?
+    </h4>
+      <div className="text-sm text-gray-600 dark:text-gray-400">
+        Rates vary depending on project scope and requirements. I offer both hourly and fixed-price arrangements. 
+        Let's discuss your specific needs to provide an accurate quote.
+      </div>
+  </Card>
+  
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+      Do you provide ongoing maintenance?
+    </h4>
+      <div className="text-sm text-gray-600 dark:text-gray-400">
+        Yes! I offer maintenance and support packages for projects I've worked on. This includes bug fixes, 
+        updates, and feature enhancements.
+      </div>
+  </Card>
+</div>
+
+<Card className="text-center p-8 my-12 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+    Ready to Start Your Project?
+  </h3>
+  <div className="text-gray-600 dark:text-gray-400 mb-6">
+    Let's turn your ideas into reality. Get in touch and let's discuss how I can help.
+  </div>
+  <button 
+    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+    className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+  >
+    Send Message ↑
+  </button>
+</Card>
