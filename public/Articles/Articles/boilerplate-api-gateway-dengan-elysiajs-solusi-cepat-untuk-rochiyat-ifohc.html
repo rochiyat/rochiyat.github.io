@@ -1,0 +1,153 @@
+<html>
+<head>
+  <title>Boilerplate API Gateway dengan Elysia.js: Solusi Cepat untuk Aplikasi Backend🚀</title>
+  <style>
+    body {
+      margin: 0 auto;
+      width: 744px;
+      font-family: Source Serif Pro, serif;
+      line-height: 32px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 21px;
+    }
+    h1, h2, h3 {
+      font-family: Source Sans Pro, Helvetica, Arial, sans-serif;
+    }
+    h1 a, h1 a:visited {
+      color: inherit;
+      text-decoration: none;
+    }
+    h1 {
+      line-height: 48px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 42px;
+      margin: 32px 0 20px;
+    }
+    h2 {
+      line-height: 32px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 26px;
+      margin: 28px 0;
+    }
+    h3 {
+      line-height: 28px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 21px;
+      margin: 24px 0;
+    }
+    p {
+      margin: 32px 0;
+    }
+    .created, .published {
+      color: rgba(0, 0, 0, 0.55);
+      font-size: 15px;
+      line-height: 15px;
+      margin: 20px 0;
+    }
+    .created + .published {
+      margin-top: -12px;
+    }
+    blockquote {
+      font-family: Georgia, Source Serif Pro, serif;
+      font-style: italic;
+      font-size: 24px;
+      line-height: 36px;
+      margin: 48px 120px;
+      text-align: center;
+    }
+    a {
+      word-wrap: break-word;
+      outline: none;
+      text-decoration: none;
+      background-color: transparent;
+      border: 0;
+      color: #008CC9;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    a:visited {
+      color: #8C68CB;
+    }
+    .center {
+      text-align: center;
+    }
+    iframe {
+      display: block;
+      margin: 44px auto;
+    }
+    *:not(pre) + pre, pre:first-of-type {
+      margin-top: 32px;
+      padding-top: 32px;
+    }
+    pre:only-of-type {
+      margin: 32px 0;
+      padding: 32px;
+    }
+    pre {
+      background: #F3F6F8;
+      overflow-x: auto;
+      display: block;
+      font-size: 13px;
+      font-family: monospace;
+      line-height: 13px;
+      padding: 0 32px 32px;
+      white-space: pre;
+    }
+    a.embedded {
+      background: #F3F6F8;
+      display: block;
+      padding: 32px;
+      margin: 32px 0;
+    }
+    img {
+      height: auto;
+      max-width: 100%;
+    }
+    .slate-image-embed__resize-full-width img {
+      width: 100%;
+    }
+    .series-logo {
+      width: 48px;
+      height: 48px;
+      box-sizing: border-box;
+      background-clip: content-box;
+      border: 4px solid transparent;
+      border-radius: 6px;
+      object-fit: scale-down;
+      float: left;
+    }
+    .series-title {
+      font-size: 16px;
+      font-weight: 600;
+      vertical-align: top;
+    }
+    .series-description {
+      color: rgba(0,0,0,.6);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    div {
+      margin: 32px 0;
+    }
+  </style>
+</head>
+<body>
+    <img class="series-logo" src="https://media.licdn.com/dms/image/v2/D5612AQHVvvRpTU9Kjg/series-logo_image-shrink_300_300/B56ZV1CM_tHQAQ-/0/1741425267361?e=1766016000&v=beta&t=iEAS06AInM9ggRZQ-IixdcGj8qzA9RBCzCe57OgLaak" />
+    <h3>
+      <span class="series-title">🚀 Tech Stack Boilerplate</span>
+      </br>
+      <span class="series-description">🚀 Memulai Proyek dengan Cepat & Efisien </span>
+    </h3>
+    <img src="https://media.licdn.com/mediaD5612AQG8ctkGskNsHA" alt="Elysia Gateway Boilerplate" title="Elysia Gateway Boilerplate" />
+      <h1><a href="https://www.linkedin.com/pulse/boilerplate-api-gateway-dengan-elysiajs-solusi-cepat-untuk-rochiyat-ifohc">Boilerplate API Gateway dengan Elysia.js: Solusi Cepat untuk Aplikasi Backend🚀</a></h1>
+    <p class="created">Created on 2025-03-09 03:52</p>
+  <p class="published">Published on 2025-03-09 04:51</p>
+  <div><p>Kata API Gateway, mungkin untuk sebagian orang masih terasa asing, namun sebagian lainnya kata yang umum. Biasanya API Gateway ini dipake untuk arsitektur microservices. Namun, menurut saya pribadi, API Gateway ini perlu dipake untuk aplikasi yang service front end dan back end terpisah. Kenapa?</p><p>Karena user atau backer ga akan mengetahui IP atau domain asli server back end kita. Jadinya akan lebih secure dan performance. Dalam postingan kali ini, saya mencoba membuat boilerplate API Gateway menggunakan elysia. Sempat beberapa postingan boilerplate sebelumnya (<a href="https://www.linkedin.com/posts/rochiyat_github-express-typescript-activity-7300810470452539392-dQN9?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAAASMEvsBckChbgYNrqLmqQEs6iQeY6wS2lY" target="_blank">https://www.linkedin.com/posts/rochiyat_github-express-typescript-activity-7300810470452539392-dQN9?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAAASMEvsBckChbgYNrqLmqQEs6iQeY6wS2lY</a>) yang menyarankan pake framework elysia JS. Sekarang ini hasilnya.hehe</p><p>Ini masih backend sebagai gatewaynya, next, lanjut untuk aplikasi back end core nya. Yuk, kita sama-sama pelajari, apa itu API Gateway, kenapa pake elysia JS, dan repo githubnya.</p><hr><h3>Apa itu API Gateway?</h3><p>API Gateway adalah komponen kunci dalam arsitektur modern yang bertindak sebagai <strong>gerbang utama</strong> antara klien API (aplikasi frontend) dan layanan backend. Dengan kata lain, API Gateway menjadi <strong>satu titik masuk</strong> untuk semua permintaan API, mengelola lalu lintas, serta menangani keamanan dan performa.</p><hr><h3>Bagaimana API Gateway Bekerja?</h3><p>Di perusahaan modern, ada ribuan API yang beroperasi secara bersamaan. API Gateway berperan sebagai <strong>pengelola utama</strong> yang membantu mengatur, merutekan, dan mengamankan permintaan API. Beberapa fitur utama API Gateway meliputi:</p><p>✅ <strong>Permintaan &amp; Perutean</strong> – Menerima permintaan API dari klien dan meneruskannya ke layanan backend yang sesuai. </p><p>✅ <strong>Komposisi API</strong> – Mengorkestrasi beberapa API backend dalam satu permintaan agar lebih efisien. </p><p>✅ <strong>Penerjemahan Protokol &amp; Data</strong> – Mengonversi format data antara klien dan server agar kompatibel. </p><p>✅ <strong>Caching</strong> – Menyimpan respons API yang sering digunakan untuk mempercepat performa.</p><p>✅ <strong>Pemantauan &amp; Logging</strong> – Melacak lalu lintas API untuk meningkatkan troubleshooting dan keamanan.</p><p></p><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQGF19iBkI3icg" src="https://media.licdn.com/dms/image/v2/D5612AQGF19iBkI3icg/article-inline_image-shrink_1500_2232/B56ZV5FbWDGsAY-/0/1741493221361?e=1765411200&amp;v=beta&amp;t=9SfvGQyeUewtfwFC-ZsDUeVkUbJ7KGuqHiwvalplU7E"><figcaption>Application Gateway</figcaption></figure><hr><h3>Kenapa Menggunakan Elysia.js?</h3><p>🔥 <strong>Elysia.js</strong> adalah <em>framework backend</em> yang muncul sebagai solusi <strong>ultra-cepat</strong>, dikembangkan pada tahun 2023 dan stabil pada tahun 2024. Mengklaim <strong>21x lebih cepat</strong> dibandingkan <strong>Express.js</strong>, Elysia.js menawarkan performa luar biasa serta fitur bawaan yang memudahkan pengembangan API modern.</p><p>🔹 <strong>Keunggulan Elysia.js:</strong></p><ul><li><p><strong>Performa tinggi</strong> – Ringan dan cepat dibandingkan framework backend lain.</p></li><li><p><strong>End-to-End Type Safety</strong> – Dukungan <em>built-in</em> untuk <strong>TypeScript</strong> memastikan kode lebih aman dan terstruktur.</p></li><li><p><strong>Ekosistem Plugin yang Lengkap</strong> – Mendukung <strong>Swagger</strong>, <strong>CORS</strong>, <strong>JWT</strong>, dan lebih banyak lagi secara bawaan.</p></li></ul><hr><h3>Mengenal Elysia Gateway Boilerplate</h3><p>Jika Anda ingin membangun API Gateway dengan <strong>Elysia.js</strong>, <strong>Elysia Gateway Boilerplate</strong> menyediakan fondasi siap pakai yang efisien dan scalable.</p><p>✨ <strong>Fitur Utama dalam Elysia Gateway Boilerplate:</strong> </p><ul><li><p><strong>Dibangun dengan Elysia.js</strong> – Framework TypeScript yang super cepat &amp; efisien ⚡ </p></li><li><p><strong>Validasi Data yang Kuat</strong> – Menggunakan <strong>sinclair/typebox</strong> untuk validasi skema yang aman 🔍 </p></li><li><p><strong>Permintaan HTTP yang Fleksibel</strong> – Dilengkapi dengan <strong>ofetch</strong>, alternatif ringan untuk API Fetch 🌐 </p></li><li><p><strong>Dukungan Middleware</strong> – Mudah menambahkan autentikasi, logging, dan rate limiting 🔒 </p></li><li><p><strong>Pola MVC</strong> – Struktur kode yang bersih &amp; fleksibel 🛠️ </p></li><li><p><strong>Linting &amp; Formatting Otomatis</strong> – Menggunakan <strong>ESLint + Prettier</strong> untuk kode yang lebih rapi 🎨 </p></li><li><p><strong>Autentikasi JWT</strong> – Keamanan bawaan dengan <strong>JOSE</strong> untuk token JWT 🔑</p></li></ul><hr><h3>Struktur Project</h3><p></p><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQGTyYALOkhDPg" src="https://media.licdn.com/dms/image/v2/D5612AQGTyYALOkhDPg/article-inline_image-shrink_1500_2232/B56ZV5OFjlGQAU-/0/1741495491253?e=1765411200&amp;v=beta&amp;t=yDV_RZZsQfMZwWHIQ96iNgR7xEzxkNLf4QY8Nhaj67U"><figcaption>Struktur Project</figcaption></figure><hr><h3>Untuk Siapa Elysia Gateway Ini?</h3><p>🚀 <strong>Cocok bagi kamu yang mencari:</strong> </p><p>✔️ <strong>Kecepatan super cepat</strong> untuk API Gateway </p><p>✔️ <strong>Solusi ringan &amp; efisien</strong> yang tidak membebani server </p><p>✔️ <strong>Performa tinggi</strong> dengan ukuran file kecil </p><p>✔️ <strong>Pengalaman coding yang modern &amp; developer-friendly</strong></p><p>💡 <strong>Ingin mencoba?</strong> Mulai eksplorasi <strong>Elysia Gateway Boilerplate</strong> dan tingkatkan efisiensi API Gateway-mu! 🚀</p><hr><h3>Repo Github</h3><p><a href="https://github.com/rochiyat/elysia-gateway-boilerplate" target="_blank">https://github.com/rochiyat/elysia-gateway-boilerplate</a></p><hr><h3>Referensi</h3><ul><li><p><a href="https://www.ibm.com/id-id/think/topics/api-gateway" target="_blank">https://www.ibm.com/id-id/think/topics/api-gateway</a></p></li><li><p><a href="https://elysiajs.com/" target="_blank">https://elysiajs.com/</a></p></li></ul></div>
+</body>
+</html>
