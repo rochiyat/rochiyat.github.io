@@ -86,4 +86,48 @@ Baru dikabarin siang hari, sore-nya langsung interview. Dalam suasana dingin ban
   
   <Card className="p-6">
     <h4 className="font-bold text-gray-900 dark:text-white mb-2">Problem Solving</h4>
-    <div className="text-sm te
+    <div className="text-sm text-gray-600 dark:text-gray-400">
+      Identifikasi masalah (Cari root cause, Evaluasi beberapa alternatif solusi, Pilih solusi terbaik, Implementasi dan review hasil)
+    </div>
+  </Card>
+  
+  <Card className="p-6">
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">Performance Optimization</h4>
+    <div className="text-sm text-gray-600 dark:text-gray-400">
+      <p className="mb-2"><strong>Jika bottleneck di query:</strong> Analisa query (execution plan) atau optimalkan penggunaan dblink (filter di dalam query).</p>
+      <p><strong>Jika bottleneck di code:</strong> Hindari await dalam loop (gunakan Promise.all), optimalkan logic, atau ambil data secara bulk sebelum loop.</p>
+    </div>
+  </Card>
+  
+  <Card className="p-6">
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">Code Style</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Gunakan ESLint & Prettier. Untuk cek kompleksitas kode, pakai SonarLint.
+    </p>
+  </Card>
+</div>
+
+## 🌱 Hikmah yang Dipetik
+
+<div className="space-y-2 my-8">
+  <div className="flex gap-2">
+    <span>•</span>
+    <span>Beberapa postingan insight di LinkedIn atau artikel lain ternyata sangat membantu saat menghadapi pertanyaan tak terduga.</span>
+  </div>
+  <div className="flex gap-2">
+    <span>•</span>
+    <span>Pahami alur dan logika saat coding, karena itu bisa jadi bahan diskusi saat interview.</span>
+  </div>
+  <div className="flex gap-2">
+    <span>•</span>
+    <span>Ingat kembali komentar reviewer saat PR - kadang itu jadi bahan evaluasi diri yang berharga 😉</span>
+  </div>
+</div>
+
+<Card className="my-8 p-6 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500">
+  <h4 className="font-bold text-gray-900 dark:text-white mb-2">📌 Disclaimer</h4>
+  <div className="text-sm text-gray-600 dark:text-gray-400">
+    Ini pengalaman pribadi, untuk bisa dijadikan pelajaran yang akan menghadapi interview ataupun penggunaan tech stack dalam interview. 
+    Saat Kamu interview, bisa jadi pertanyaannya akan berbeda dengan pertanyaan ini. Jadi tetap persiapkan diri agar tetap percaya diri dalam menghadapi interview 😉
+  </div>
+</Card>
