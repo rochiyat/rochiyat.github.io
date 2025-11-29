@@ -1,0 +1,247 @@
+---
+title: 'Backend Developer Wajib Tahu! Perbandingan Singkat Node.js, Deno, dan Bun'
+date: '2025-03-18'
+author: 'Rochiyat'
+description: 'Perbandingan lengkap antara Node.js, Deno, dan Bun. Mana yang paling cocok untuk project kamu? Mari kita bahas runtime, performa, dan use case masing-masing.'
+tags: ['Node.js', 'Deno', 'Bun', 'Backend', 'JavaScript']
+category: 'Tech Stack Boilerplate'
+---
+
+import { Card } from '@/components/ui/Card'
+
+# Backend Developer Wajib Tahu! Perbandingan Singkat Node.js, Deno, dan Bun 🔍
+
+<div className="text-sm text-gray-600 dark:text-gray-400 mb-8">
+  Published on March 18, 2025 · 8 min read
+</div>
+
+## 🚀 Pendahuluan
+
+Dalam dunia pemrograman JavaScript modern - terutama di sisi backend - kita sering hanya mengenal **Node.js** saja. Padahal, ada beberapa runtime lain yang bisa menjalankan JavaScript sebagai backend juga, lho! 😲
+
+Selain **Node.js**, ada juga **Deno** dan **Bun**. Sudah pernah dengar? 🤔
+
+<Card className="my-6 p-6 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-600">
+  <div className="text-sm">
+    Tenang, kita bahas secara ringkas tentang ketiganya di sini. Kenapa ringkas? Karena info lebih lengkap bisa kamu gali di official docs atau artikel lainnya. Hehe 😄
+  </div>
+</Card>
+
+---
+
+## 🟦 Node.js
+
+<Card className="my-6 p-6">
+  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Spesifikasi Teknis</h3>
+  
+  <div className="space-y-3">
+    <div>
+      <h4 className="font-semibold text-gray-900 dark:text-white">Runtime:</h4>
+      <p className="text-sm text-gray-600 dark:text-gray-400">V8 Engine (punya Google Chrome)</p>
+    </div>
+    
+    <div>
+      <h4 className="font-semibold text-gray-900 dark:text-white">Ditambah dengan:</h4>
+      <ul className="text-sm text-gray-600 dark:text-gray-400 list-disc list-inside">
+        <li>C++ bindings</li>
+        <li>libuv (untuk async I/O)</li>
+        <li>Modul internal (fs, http, dll)</li>
+      </ul>
+    </div>
+    
+    <div>
+      <h4 className="font-semibold text-gray-900 dark:text-white">Kelebihan V8:</h4>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        Cepat, stabil, dan sudah battle-tested karena juga dipakai di Chrome
+      </p>
+    </div>
+  </div>
+</Card>
+
+<Card className="my-6 p-6 bg-green-50 dark:bg-green-900/20">
+  <h4 className="font-bold text-gray-900 dark:text-white mb-2">✅ Kapan cocok pakai Node.js?</h4>
+  <p className="text-sm text-gray-600 dark:text-gray-400">
+    Kalau kamu butuh stabilitas, dukungan komunitas besar, dan ekosistem DevOps yang matang. 
+    Cocok untuk aplikasi skala besar dan production-ready. 💼
+  </p>
+</Card>
+
+---
+
+## 🟧 Deno
+
+<Card className="my-6 p-6">
+  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Spesifikasi Teknis</h3>
+  
+  <div className="space-y-3">
+    <div>
+      <h4 className="font-semibold text-gray-900 dark:text-white">Runtime:</h4>
+      <p className="text-sm text-gray-600 dark:text-gray-400">Masih pakai V8 Engine seperti Node.js</p>
+    </div>
+    
+    <div>
+      <h4 className="font-semibold text-gray-900 dark:text-white">Namun ditulis dengan:</h4>
+      <p className="text-sm text-gray-600 dark:text-gray-400"><strong>Rust</strong>, bukan C++</p>
+    </div>
+    
+    <div>
+      <h4 className="font-semibold text-gray-900 dark:text-white">Dilengkapi dengan:</h4>
+      <ul className="text-sm text-gray-600 dark:text-gray-400 list-disc list-inside">
+        <li>Built-in permission system 🔐</li>
+        <li>Native TypeScript transpilation</li>
+        <li>Modern tooling</li>
+      </ul>
+    </div>
+  </div>
+</Card>
+
+<Card className="my-6 p-6 bg-purple-50 dark:bg-purple-900/20 border-l-4 border-purple-600">
+  <div className="text-center italic">
+    <strong>Fun fact:</strong> Deno = anagram dari Node 😄
+  </div>
+</Card>
+
+<Card className="my-6 p-6 bg-green-50 dark:bg-green-900/20">
+  <h4 className="font-bold text-gray-900 dark:text-white mb-2">✅ Kapan cocok pakai Deno?</h4>
+  <p className="text-sm text-gray-600 dark:text-gray-400">
+    Kalau kamu suka eksplorasi teknologi baru, butuh native TS, dan ingin keamanan sejak awal. 
+    Ideal untuk proyek baru yang tidak terlalu bergantung pada ekosistem NPM.
+  </p>
+</Card>
+
+---
+
+## 🟩 Bun
+
+<Card className="my-6 p-6">
+  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Spesifikasi Teknis</h3>
+  
+  <div className="space-y-3">
+    <div>
+      <h4 className="font-semibold text-gray-900 dark:text-white">Runtime:</h4>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        <strong>JavaScriptCore (JSC)</strong> — engine milik Apple (dipakai di Safari)
+      </p>
+    </div>
+    
+    <div>
+      <h4 className="font-semibold text-gray-900 dark:text-white">Dibangun dengan:</h4>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        <strong>Zig</strong> — bahasa sistem yang cepat dan ringan ⚡️
+      </p>
+    </div>
+    
+    <div>
+      <h4 className="font-semibold text-gray-900 dark:text-white">Kenapa Bun nggak pakai V8?</h4>
+      <p className="text-sm text-gray-600 dark:text-gray-400">
+        Karena <strong>JavaScriptCore</strong> unggul dalam hal startup time dan efisiensi memori. 
+        Fokus utama Bun memang kecepatan dan efisiensi.
+      </p>
+    </div>
+  </div>
+</Card>
+
+<Card className="my-6 p-6 bg-green-50 dark:bg-green-900/20">
+  <h4 className="font-bold text-gray-900 dark:text-white mb-2">✅ Kapan cocok pakai Bun?</h4>
+  <p className="text-sm text-gray-600 dark:text-gray-400">
+    Kalau kamu ingin performa tinggi: startup cepat, CLI tools gesit, dan microservice ringan. 
+    Cocok buat developer yang haus efisiensi & respons kilat! ⚡🔥
+  </p>
+</Card>
+
+---
+
+## ♻️ Perbandingan
+
+<div className="my-8 overflow-x-auto">
+  <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700">
+    <thead>
+      <tr className="bg-gray-100 dark:bg-gray-800">
+        <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Runtime</th>
+        <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Engine</th>
+        <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Bahasa</th>
+        <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Keunggulan</th>
+        <th className="border border-gray-300 dark:border-gray-700 px-4 py-2">Cocok Untuk</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2 font-semibold">Node.js</td>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">V8</td>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">C++</td>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Stabil, ekosistem luas 🌐</td>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Aplikasi production besar</td>
+      </tr>
+      <tr>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2 font-semibold">Deno</td>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">V8</td>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Rust</td>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Secure by default, native TS 🔒</td>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Proyek modern dan eksperimen</td>
+      </tr>
+      <tr>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2 font-semibold">Bun</td>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">JavaScriptCore</td>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Zig</td>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Super cepat & ringan ⚡</td>
+        <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">Proyek efisien, microservice, tooling</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+---
+
+## 📌 Resume Singkat
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+  <Card className="p-6 bg-blue-50 dark:bg-blue-900/20">
+    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">🟦 Node.js</h3>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+      <strong>Keunggulan:</strong> Stabil, ekosistem luas 🌐
+    </p>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      <strong>Cocok untuk:</strong> Aplikasi production besar
+    </p>
+  </Card>
+  
+  <Card className="p-6 bg-orange-50 dark:bg-orange-900/20">
+    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">🟧 Deno</h3>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+      <strong>Keunggulan:</strong> Secure by default, native TS 🔒
+    </p>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      <strong>Cocok untuk:</strong> Proyek modern dan eksperimen
+    </p>
+  </Card>
+  
+  <Card className="p-6 bg-green-50 dark:bg-green-900/20">
+    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">🟩 Bun</h3>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+      <strong>Keunggulan:</strong> Super cepat & ringan ⚡
+    </p>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      <strong>Cocok untuk:</strong> Proyek efisien, microservice, tooling
+    </p>
+  </Card>
+</div>
+
+---
+
+## 💭 Kesimpulan Pribadi
+
+<Card className="my-8 p-8 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20">
+  <p className="text-center text-gray-600 dark:text-gray-400 mb-4">
+    Kalau saya pribadi sih, lagi tertarik memperdalam <strong>Bun</strong> - ringan dan cepat banget! 🔥
+  </p>
+  <p className="text-center text-sm text-gray-500 dark:text-gray-500">
+    Sama kayak tren <strong>LLM Gamma 3 dari Google</strong> - kecil tapi ngebut. 
+    Efisiensi & kecepatan ini bisa jadi parameter penting untuk masa depan teknologi 😉💡
+  </p>
+</Card>
+
+---
+
+<div className="mt-8 text-sm text-gray-600 dark:text-gray-400">
+  Tags: #nodejs #deno #bun #backend #javascript #runtime
+</div>

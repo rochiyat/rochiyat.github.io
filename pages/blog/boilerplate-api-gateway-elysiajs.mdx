@@ -1,0 +1,113 @@
+---
+title: 'Boilerplate API Gateway dengan Elysia.js: Solusi Cepat untuk Aplikasi Backend🚀'
+date: '2025-03-09'
+author: 'Rochiyat'
+description: 'Kenalan dengan API Gateway dan bagaimana membangunnya menggunakan Elysia.js, framework backend ultra-cepat yang 21x lebih cepat dari Express.js.'
+tags: ['Elysia.js', 'API Gateway', 'Backend', 'Boilerplate', 'TypeScript']
+category: 'Tech Stack Boilerplate'
+---
+
+import { Card } from '@/components/ui/Card'
+
+# Boilerplate API Gateway dengan Elysia.js: Solusi Cepat untuk Aplikasi Backend🚀
+
+<div className="text-sm text-gray-600 dark:text-gray-400 mb-8">
+  Published on March 9, 2025 · 7 min read
+</div>
+
+Kata API Gateway, mungkin untuk sebagian orang masih terasa asing, namun sebagian lainnya kata yang umum. Biasanya API Gateway ini dipake untuk arsitektur microservices. Namun, menurut saya pribadi, API Gateway ini perlu dipake untuk aplikasi yang service front end dan back end terpisah. Kenapa?
+
+Karena user atau hacker ga akan mengetahui IP atau domain asli server back end kita. Jadinya akan lebih secure dan performance. Dalam postingan kali ini, saya mencoba membuat boilerplate API Gateway menggunakan elysia.
+
+Ini masih backend sebagai gatewaynya, next, lanjut untuk aplikasi back end core nya. Yuk, kita sama-sama pelajari, apa itu API Gateway, kenapa pake elysia JS, dan repo githubnya.
+
+---
+
+## Apa itu API Gateway?
+
+API Gateway adalah komponen kunci dalam arsitektur modern yang bertindak sebagai **gerbang utama** antara klien API (aplikasi frontend) dan layanan backend. Dengan kata lain, API Gateway menjadi **satu titik masuk** untuk semua permintaan API, mengelola lalu lintas, serta menangani keamanan dan performa.
+
+---
+
+## Bagaimana API Gateway Bekerja?
+
+Di perusahaan modern, ada ribuan API yang beroperasi secara bersamaan. API Gateway berperan sebagai **pengelola utama** yang membantu mengatur, merutekan, dan mengamankan permintaan API. Beberapa fitur utama API Gateway meliputi:
+
+✅ **Permintaan & Perutean** – Menerima permintaan API dari klien dan meneruskannya ke layanan backend yang sesuai.
+
+✅ **Komposisi API** – Mengorkestrasi beberapa API backend dalam satu permintaan agar lebih efisien.
+
+✅ **Penerjemahan Protokol & Data** – Mengonversi format data antara klien dan server agar kompatibel.
+
+✅ **Caching** – Menyimpan respons API yang sering digunakan untuk mempercepat performa.
+
+✅ **Pemantauan & Logging** – Melacak lalu lintas API untuk meningkatkan troubleshooting dan keamanan.
+
+---
+
+## Kenapa Menggunakan Elysia.js?
+
+🔥 **Elysia.js** adalah *framework backend* yang muncul sebagai solusi **ultra-cepat**, dikembangkan pada tahun 2023 dan stabil pada tahun 2024. Mengklaim **21x lebih cepat** dibandingkan **Express.js**, Elysia.js menawarkan performa luar biasa serta fitur bawaan yang memudahkan pengembangan API modern.
+
+<Card className="my-6 p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+  <div className="space-y-4">
+    <h3 className="text-lg font-bold text-gray-900 dark:text-white">🔹 Keunggulan Elysia.js:</h3>
+    
+    <div className="space-y-2">
+      <p className="text-sm"><strong>Performa tinggi</strong> – Ringan dan cepat dibandingkan framework backend lain.</p>
+      <p className="text-sm"><strong>End-to-End Type Safety</strong> – Dukungan <em>built-in</em> untuk <strong>TypeScript</strong> memastikan kode lebih aman dan terstruktur.</p>
+      <p className="text-sm"><strong>Ekosistem Plugin yang Lengkap</strong> – Mendukung <strong>Swagger</strong>, <strong>CORS</strong>, <strong>JWT</strong>, dan lebih banyak lagi secara bawaan.</p>
+    </div>
+  </div>
+</Card>
+
+---
+
+## Mengenal Elysia Gateway Boilerplate
+
+Jika Anda ingin membangun API Gateway dengan **Elysia.js**, **Elysia Gateway Boilerplate** menyediakan fondasi siap pakai yang efisien dan scalable.
+
+### ✨ Fitur Utama dalam Elysia Gateway Boilerplate:
+
+- **Dibangun dengan Elysia.js** – Framework TypeScript yang super cepat & efisien ⚡
+- **Validasi Data yang Kuat** – Menggunakan **sinclair/typebox** untuk validasi skema yang aman 🔍
+- **Permintaan HTTP yang Fleksibel** – Dilengkapi dengan **ofetch**, alternatif ringan untuk API Fetch 🌐
+- **Dukungan Middleware** – Mudah menambahkan autentikasi, logging, dan rate limiting 🔒
+- **Pola MVC** – Struktur kode yang bersih & fleksibel 🛠️
+- **Linting & Formatting Otomatis** – Menggunakan **ESLint + Prettier** untuk kode yang lebih rapi 🎨
+- **Autentikasi JWT** – Keamanan bawaan dengan **JOSE** untuk token JWT 🔑
+
+---
+
+## Untuk Siapa Elysia Gateway Ini?
+
+🚀 **Cocok bagi kamu yang mencari:**
+
+✔️ **Kecepatan super cepat** untuk API Gateway
+
+✔️ **Solusi ringan & efisien** yang tidak membebani server
+
+✔️ **Performa tinggi** dengan ukuran file kecil
+
+✔️ **Pengalaman coding yang modern & developer-friendly**
+
+💡 **Ingin mencoba?** Mulai eksplorasi **Elysia Gateway Boilerplate** dan tingkatkan efisiensi API Gateway-mu! 🚀
+
+---
+
+## Repo Github
+
+[https://github.com/rochiyat/elysia-gateway-boilerplate](https://github.com/rochiyat/elysia-gateway-boilerplate)
+
+---
+
+## Referensi
+
+- [https://www.ibm.com/id-id/think/topics/api-gateway](https://www.ibm.com/id-id/think/topics/api-gateway)
+- [https://elysiajs.com/](https://elysiajs.com/)
+
+---
+
+<div className="mt-8 text-sm text-gray-600 dark:text-gray-400">
+  Tags: #APIGateway #ElysiaJS #Backend #Boilerplate #TypeScript #WebDevelopment
+</div>

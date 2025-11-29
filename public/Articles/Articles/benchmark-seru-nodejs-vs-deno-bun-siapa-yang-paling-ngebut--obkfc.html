@@ -1,0 +1,153 @@
+<html>
+<head>
+  <title>🚀 Benchmark Seru: Node.js vs Deno vs Bun – Siapa yang Paling Ngebut?</title>
+  <style>
+    body {
+      margin: 0 auto;
+      width: 744px;
+      font-family: Source Serif Pro, serif;
+      line-height: 32px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 21px;
+    }
+    h1, h2, h3 {
+      font-family: Source Sans Pro, Helvetica, Arial, sans-serif;
+    }
+    h1 a, h1 a:visited {
+      color: inherit;
+      text-decoration: none;
+    }
+    h1 {
+      line-height: 48px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 42px;
+      margin: 32px 0 20px;
+    }
+    h2 {
+      line-height: 32px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 26px;
+      margin: 28px 0;
+    }
+    h3 {
+      line-height: 28px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 21px;
+      margin: 24px 0;
+    }
+    p {
+      margin: 32px 0;
+    }
+    .created, .published {
+      color: rgba(0, 0, 0, 0.55);
+      font-size: 15px;
+      line-height: 15px;
+      margin: 20px 0;
+    }
+    .created + .published {
+      margin-top: -12px;
+    }
+    blockquote {
+      font-family: Georgia, Source Serif Pro, serif;
+      font-style: italic;
+      font-size: 24px;
+      line-height: 36px;
+      margin: 48px 120px;
+      text-align: center;
+    }
+    a {
+      word-wrap: break-word;
+      outline: none;
+      text-decoration: none;
+      background-color: transparent;
+      border: 0;
+      color: #008CC9;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    a:visited {
+      color: #8C68CB;
+    }
+    .center {
+      text-align: center;
+    }
+    iframe {
+      display: block;
+      margin: 44px auto;
+    }
+    *:not(pre) + pre, pre:first-of-type {
+      margin-top: 32px;
+      padding-top: 32px;
+    }
+    pre:only-of-type {
+      margin: 32px 0;
+      padding: 32px;
+    }
+    pre {
+      background: #F3F6F8;
+      overflow-x: auto;
+      display: block;
+      font-size: 13px;
+      font-family: monospace;
+      line-height: 13px;
+      padding: 0 32px 32px;
+      white-space: pre;
+    }
+    a.embedded {
+      background: #F3F6F8;
+      display: block;
+      padding: 32px;
+      margin: 32px 0;
+    }
+    img {
+      height: auto;
+      max-width: 100%;
+    }
+    .slate-image-embed__resize-full-width img {
+      width: 100%;
+    }
+    .series-logo {
+      width: 48px;
+      height: 48px;
+      box-sizing: border-box;
+      background-clip: content-box;
+      border: 4px solid transparent;
+      border-radius: 6px;
+      object-fit: scale-down;
+      float: left;
+    }
+    .series-title {
+      font-size: 16px;
+      font-weight: 600;
+      vertical-align: top;
+    }
+    .series-description {
+      color: rgba(0,0,0,.6);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    div {
+      margin: 32px 0;
+    }
+  </style>
+</head>
+<body>
+    <img class="series-logo" src="https://media.licdn.com/dms/image/v2/D5612AQHVvvRpTU9Kjg/series-logo_image-shrink_300_300/B56ZV1CM_tHQAQ-/0/1741425267361?e=1766016000&v=beta&t=iEAS06AInM9ggRZQ-IixdcGj8qzA9RBCzCe57OgLaak" />
+    <h3>
+      <span class="series-title">🚀 Tech Stack Boilerplate</span>
+      </br>
+      <span class="series-description">🚀 Memulai Proyek dengan Cepat & Efisien </span>
+    </h3>
+    <img src="https://media.licdn.com/mediaD5612AQFGuj9KC_LUdA" alt="" title="" />
+      <h1><a href="https://www.linkedin.com/pulse/benchmark-seru-nodejs-vs-deno-bun-siapa-yang-paling-ngebut--obkfc">🚀 Benchmark Seru: Node.js vs Deno vs Bun – Siapa yang Paling Ngebut?</a></h1>
+    <p class="created">Created on 2025-03-24 01:09</p>
+  <p class="published">Published on 2025-03-24 01:46</p>
+  <div><p>Pada postingan sebelumnya <a href="https://bit.ly/4bXnkrR" target="_blank">https://bit.ly/4bXnkrR</a>, kita sudah bahas kelebihan, kekurangan, dan kapan sebaiknya menggunakan Node.js, Deno, atau Bun. 🔍</p><p>Nah, kali ini kita masuk ke tahap seru: <strong>benchmark sederhana untuk mengukur performa masing-masing runtime</strong> 💻⚡</p><p>Kita akan coba <strong>install dan jalankan Express</strong>, lalu lihat performanya masing-masing. 🔥 Selain itu, saya tambahkan juga hasil <strong>benchmark dari website bun</strong> sebagai pembanding. 📊</p><hr><h2>⚙️ Parameter Benchmark</h2><p>Untuk benchmark sendiri, ada beberapa parameter. Dibawah ini parameter yang biasa dipakai untuk menentukan benchmark aplikasi.</p><ul><li><p>🚀 Startup Time</p></li><li><p>⏱️ Execution Time / Throughput</p></li><li><p>🧠 Memory Usage</p></li><li><p>💻 CPU Usage</p></li><li><p>📂 File I/O Performance</p></li><li><p>🌐 HTTP Server Performance</p></li><li><p>📦 Package Install Time</p></li><li><p>❄️ Cold Build Time</p></li><li><p>🧵 Concurrency Handling</p></li><li><p>🌍 Compatibility &amp; Ecosystem Overhead</p></li></ul><hr><h2>🛠️ Tools yang Digunakan</h2><p>Jika benchmark dilakukan manual, akan <em>takes time</em> banget dan hasilnya bisa kurang akurat. Oleh karena itu, kita akan melakukan dengan salah satu dari beberapa tools benchmark yang biasa dipakai. Dari website resmi bun <a href="https://bun.sh/" target="_blank">https://bun.sh/</a> disarankan menggunakan oha atau bombardier. Kita lihat apa saja tools benchmark yang biasa dipakai.</p><ul><li><p>autocannon – HTTP Benchmark CLI</p></li><li><p>wrk – HTTP performance benchmark tool</p></li><li><p>hyperfine – CLI execution time comparison</p></li><li><p>time – Linux basic time command</p></li><li><p>top/htop atau <strong>Task Manager</strong> – untuk lihat CPU/Memory</p></li><li><p>oha atau bombardier – HTTP benchmarking</p></li></ul><p>📌 <strong>Note dari README Benchmark Express</strong></p><p><a href="https://github.com/oven-sh/bun/blob/main/bench/express/README.md" target="_blank"><strong>https://github.com/oven-sh/bun/blob/main/bench/express/README.md</strong></a></p><blockquote><p>Disarankan menggunakan <strong>oha</strong> atau <strong>bombardier</strong> untuk benchmark. Tidak disarankan pakai ab karena menggunakan HTTP/1.0 yang sudah usang. autocannon juga tidak disarankan karena keterbatasan performa node:http client untuk mengukur kecepatan HTTP server milik Bun. Gunakan Accept-Encoding: identity untuk mencegah kompresi di Deno.</p></blockquote><hr><h2>🧪 Langkah Benchmark Express</h2><ol><li><p>git clone https://github.com/oven-sh/bun.git</p></li><li><p>Masuk ke folder ./bench/express</p></li><li><p>Install bombardier</p></li><li><p>Jalankan benchmark untuk masing-masing runtime</p></li></ol><hr><h2>📈 Hasil Benchmark</h2><h3>✅ Benchmark Bun</h3><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQFwhmNF4Y2wYQ" src="https://media.licdn.com/dms/image/v2/D5612AQFwhmNF4Y2wYQ/article-inline_image-shrink_400_744/B56ZXFumE4HQAY-/0/1742779081507?e=1766016000&amp;v=beta&amp;t=MnUW1pjHwRppel-DsbgNjgR1ImxdzXDF1PYckRoz6iQ"><figcaption>Waktu install library pakai bun</figcaption></figure><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQG8FB9xqRZGHg" src="https://media.licdn.com/dms/image/v2/D5612AQG8FB9xqRZGHg/article-inline_image-shrink_1500_2232/B56ZXFu0WmGUAU-/0/1742779139924?e=1766016000&amp;v=beta&amp;t=wxHn5rNp_jHYZrkn9fRNHDRF2AN8VzuNWpfjGQ5Qwio"><figcaption>Bun running via </figcaption></figure><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQEWPuMkeNgVBw" src="https://media.licdn.com/dms/image/v2/D5612AQEWPuMkeNgVBw/article-inline_image-shrink_400_744/B56ZXFu7D5GsAY-/0/1742779167629?e=1766016000&amp;v=beta&amp;t=dxVo23y2vmyLOmEDMQfMLygPCYkGYerT-OVJbCB1i3Q"><figcaption>Running bombardier untuk bun</figcaption></figure><h3>✅ Benchmark Node.js</h3><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQEnz1omaPlwhg" src="https://media.licdn.com/dms/image/v2/D5612AQEnz1omaPlwhg/article-inline_image-shrink_1000_1488/B56ZXFvEBaHQAQ-/0/1742779204188?e=1766016000&amp;v=beta&amp;t=bFpbytk3z1sxTaGPMxHBKLa0h_eFh_V1_uNYFuOs1yY"><figcaption>Waktu install library pakai nodejs</figcaption></figure><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQG90PLJlTkZqg" src="https://media.licdn.com/dms/image/v2/D5612AQG90PLJlTkZqg/article-inline_image-shrink_1500_2232/B56ZXFvQUdHEAU-/0/1742779254606?e=1766016000&amp;v=beta&amp;t=Om_AnAh4Yif6-2Arurvb9h6637feT7uxjMKBIrVyczk"><figcaption>Nodejs running via </figcaption></figure><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQHtmJLNc3iTNQ" src="https://media.licdn.com/dms/image/v2/D5612AQHtmJLNc3iTNQ/article-inline_image-shrink_400_744/B56ZXFvVmwHQAY-/0/1742779276321?e=1766016000&amp;v=beta&amp;t=ydt6eIar9QI3INrH-bm4GWsLHeW5IRhp3lyAWRMGPfU"><figcaption>Running bombardier untuk nodejs</figcaption></figure><h3>✅ Benchmark Deno</h3><p>Sebelum melakukan benchmark, code program ada yg perlu diganti &amp; deno tidak ada deno install krn saat running deno, akan install dependencies library yang dibutuhkan terlebih dahulu kemudian running aplikasi.</p><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQER1NHGWwlk9A" src="https://media.licdn.com/dms/image/v2/D5612AQER1NHGWwlk9A/article-inline_image-shrink_400_744/B56ZXFvsBIHQAY-/0/1742779367909?e=1766016000&amp;v=beta&amp;t=y4peLy83UNQUrwkOsO6ESuUvdHxUSPZTkDcBVuYGuuQ"><figcaption>Code yang diganti untuk deno</figcaption></figure><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQHornBTf8RgbQ" src="https://media.licdn.com/dms/image/v2/D5612AQHornBTf8RgbQ/article-inline_image-shrink_1500_2232/B56ZXFv1t5GoAU-/0/1742779407658?e=1766016000&amp;v=beta&amp;t=O_iFFcHxY96H818V6kty5cM1eizl9VxuI_cgNdl48Sc"><figcaption>Deno running via </figcaption></figure><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQHZmD_dCwHzZg" src="https://media.licdn.com/dms/image/v2/D5612AQHZmD_dCwHzZg/article-inline_image-shrink_400_744/B56ZXFwJNyGoAc-/0/1742779487727?e=1766016000&amp;v=beta&amp;t=FFbylFgdj-ikPAwAMZlThK2onn-Laq8x03Tdi6nV9Do"><figcaption>Running bombardier untuk deno</figcaption></figure><h3>✅ Benchmark Dari website Bun</h3><p></p><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQFfLNVNBTcbZQ" src="https://media.licdn.com/dms/image/v2/D5612AQFfLNVNBTcbZQ/article-inline_image-shrink_1000_1488/B56ZXFxeKOHQAU-/0/1742779835425?e=1766016000&amp;v=beta&amp;t=ez0GkhI0iGUHpKeM946m1rF40ksIBGmzjj7c89BqhBc"><figcaption>Benchmark dari website bun</figcaption></figure><hr><h2>📌 Kesimpulan</h2><p>💡 Kalau kamu ingin bikin server <strong>cepat dan ringan</strong>, ➡️ <strong>Bun bisa jadi pilihan utama</strong>.</p><p>📦 Kalau butuh <strong>ekosistem library yang stabil</strong>, ➡️ <strong>Node.js masih sangat relevan</strong>.</p><p>🔐 Kalau ingin <strong>runtime modern &amp; secure</strong>, ➡️ <strong>Deno layak dipertimbangkan</strong>.</p><hr><h3>💬 Catatan Tambahan:</h3><ul><li><p>🔥 Dari berbagai metrik, <strong>Bun secara konsisten unggul performa</strong>.</p></li><li><p>🐢 <strong>Node.js mulai tertinggal</strong>, walau secara ekosistem tetap juara.</p></li><li><p>🌱 <strong>Deno menunjukkan potensi menjanjikan</strong>, terutama dalam latensi dan efisiensi.</p></li></ul><hr><h2>Disclaimer</h2><p>Hasil benchmark ini bisa berbeda dengan hasil yang Kamu lakukan sendiri ya. Dan ini hanya eksperimen sederhana untuk mengetahui benchmark masing-masing.</p><hr><p>Kalau setuju atau punya insight tambahan, feel free komen ya! 👇😊</p><p>#Nodejs #Bun #Deno #Benchmark #WebDevelopment #JavaScript #PerformanceTest</p></div>
+</body>
+</html>

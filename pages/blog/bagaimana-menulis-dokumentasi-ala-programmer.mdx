@@ -1,0 +1,192 @@
+---
+title: 'Bagaimana Menulis Dokumentasi ala Programmer?'
+date: '2025-06-17'
+author: 'Rochiyat'
+description: 'Cara nulis dokumentasi yang enak dibaca dan gak bikin ngantuk. Dokumentasi bukan karya sastra, tapi peta harta karun yang bantu kita sampai ke tujuan.'
+tags: ['Documentation', 'Best Practices', 'Tips', 'Writing']
+category: 'Programmer Productivity'
+---
+
+import { Card } from '@/components/ui/Card'
+
+# Bagaimana Menulis Dokumentasi ala Programmer?
+
+<div className="text-sm text-gray-600 dark:text-gray-400 mb-8">
+  Published on June 17, 2025 · 6 min read
+</div>
+
+Pernah denger jokes ini?
+
+<Card className="my-6 p-6 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-600">
+  <div className="text-center italic">
+    "Code is like a joke. If you have to explain it, it's not that good."
+  </div>
+</Card>
+
+Tapi sayangnya... realita di dunia programming: **even the best jokes need subtitles.** Termasuk kode kamu.
+
+Waktu awal-awal jadi developer, saya pikir dokumentasi itu tugas QA atau tech writer. Saya pikir: *"Toh kodenya udah jelas, tinggal baca aja."*
+
+Sampai akhirnya saya harus bantu debug modul yang ditulis orang lain - tanpa dokumentasi. Itu bukan coding... itu detektifan. Saya kayak Sherlock Holmes yang mencoba menyelidiki kenapa ada fungsi dengan nama aneh padahal isinya query SQL.
+
+## 📌 Cara Nulis Dokumentasi yang Enak Dibaca
+
+Ini mungkin bisa jadi cara **sederhana dan realistis ala programmer**:
+
+### 1. README Adalah Gerbang Utama
+
+<Card className="my-6 p-6">
+  <h4 className="font-bold text-gray-900 dark:text-white mb-3">Isi minimal:</h4>
+  <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+    <li>• Apa project ini?</li>
+    <li>• Gimana cara install dan run?</li>
+    <li>• Teknologi yang dipakai?</li>
+    <li>• Struktur folder dan file penting</li>
+  </ul>
+</Card>
+
+<Card className="my-6 p-6 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-600">
+  <div className="text-sm">
+    Anggap aja kamu lagi ngenalin rumah ke tamu baru. Jangan biarin mereka nyasar ke gudang duluan.
+  </div>
+</Card>
+
+### 2. Comment Seperlunya
+
+Bukan semua baris dikasih comment. Tapi bagian:
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+  <Card className="p-4 text-center">
+    <p className="text-sm text-gray-600 dark:text-gray-400">Logic kompleks</p>
+  </Card>
+  <Card className="p-4 text-center">
+    <p className="text-sm text-gray-600 dark:text-gray-400">Shortcut atau asumsi khusus</p>
+  </Card>
+  <Card className="p-4 text-center">
+    <p className="text-sm text-gray-600 dark:text-gray-400">Hal yang bisa bikin bingung nanti</p>
+  </Card>
+</div>
+
+### 3. Catat Hal-hal di Luar Kebiasaan
+
+<div className="space-y-3 my-6">
+  <Card className="p-4">
+    <p className="text-sm text-gray-600 dark:text-gray-400">• Harus pakai env tertentu</p>
+  </Card>
+  <Card className="p-4">
+    <p className="text-sm text-gray-600 dark:text-gray-400">• Port khusus</p>
+  </Card>
+  <Card className="p-4">
+    <p className="text-sm text-gray-600 dark:text-gray-400">• Library versi non-standar</p>
+  </Card>
+  <Card className="p-4">
+    <p className="text-sm text-gray-600 dark:text-gray-400">• Cara setup yang beda dari biasanya</p>
+  </Card>
+</div>
+
+<Card className="my-6 p-6 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-600">
+  <div className="text-sm italic">
+    Anggap aja kamu lagi nitip rumah ke teman, dan kamu kasih tahu: "Oh iya, pintunya agak macet ya, mesti didorong pakai bahu."
+  </div>
+</Card>
+
+### 4. Gunakan Tools Kalau Bisa
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">📚 Swagger</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Buat dokumentasi API yang interaktif
+    </p>
+  </Card>
+  
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">📝 JSDoc / TSDoc</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Buat penjelasan fungsi di code
+    </p>
+  </Card>
+  
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">📄 Markdown</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Buat catatan ringan dan README
+    </p>
+  </Card>
+  
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">📋 Notion / Confluence</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Untuk wiki project internal
+    </p>
+  </Card>
+</div>
+
+## 🧠 Intinya
+
+<Card className="my-8 p-8 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center">
+    Dokumentasi bukan karya sastra
+  </h3>
+  <p className="text-center text-gray-600 dark:text-gray-400 mb-4">
+    Nggak perlu pakai kalimat berbunga. Cukup jelas, ringkas, dan fokus bantu orang ngerti <em>why</em> dan <em>how</em>.
+  </p>
+  <p className="text-center text-lg font-semibold text-gray-900 dark:text-white">
+    Dokumentasi itu kayak peta harta karun. Bukan yang bikin kita tersesat, tapi yang bantu kita sampai ke tujuan.
+  </p>
+</Card>
+
+## Template README Sederhana
+
+```markdown
+# Project Name
+
+Brief description of what this project does.
+
+## Tech Stack
+- Next.js 15
+- TypeScript
+- Tailwind CSS
+
+## Getting Started
+
+### Prerequisites
+- Node.js 18+
+- npm or bun
+
+### Installation
+\`\`\`bash
+npm install
+npm run dev
+\`\`\`
+
+## Project Structure
+\`\`\`
+src/
+├── app/          # App router pages
+├── components/   # Reusable components
+├── lib/          # Utilities
+└── types/        # TypeScript types
+\`\`\`
+
+## Environment Variables
+\`\`\`
+DATABASE_URL=
+API_KEY=
+\`\`\`
+
+## Contributing
+Pull requests are welcome!
+```
+
+## 🤔 Diskusi
+
+Kamu sendiri, bagian mana dari dokumentasi yang paling sering kamu tulis? Atau... bagian mana yang paling sering kamu skip (dan akhirnya nyesel)? 😅
+
+Yuk diskusi bareng di kolom komentar! 👇
+
+---
+
+<div className="mt-8 text-sm text-gray-600 dark:text-gray-400">
+  Tags: #softwaredevelopment #techwriting #developerlife #codereview #programmertips
+</div>

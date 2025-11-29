@@ -1,0 +1,123 @@
+---
+title: '🚀 Benchmark Seru: Node.js vs Deno vs Bun – Siapa yang Paling Ngebut?'
+date: '2025-03-24'
+author: 'Rochiyat'
+description: 'Benchmark sederhana untuk mengukur performa Node.js, Deno, dan Bun. Kita akan install dan jalankan Express, lalu lihat performanya masing-masing.'
+tags: ['Node.js', 'Deno', 'Bun', 'Benchmark', 'Performance']
+category: 'Tech Stack Boilerplate'
+---
+
+import { Card } from '@/components/ui/Card'
+
+# 🚀 Benchmark Seru: Node.js vs Deno vs Bun – Siapa yang Paling Ngebut?
+
+<div className="text-sm text-gray-600 dark:text-gray-400 mb-8">
+  Published on March 24, 2025 · 8 min read
+</div>
+
+Pada postingan sebelumnya, kita sudah bahas kelebihan, kekurangan, dan kapan sebaiknya menggunakan Node.js, Deno, atau Bun. 🔍
+
+Nah, kali ini kita masuk ke tahap seru: **benchmark sederhana untuk mengukur performa masing-masing runtime** 💻⚡
+
+Kita akan coba **install dan jalankan Express**, lalu lihat performanya masing-masing. 🔥 Selain itu, saya tambahkan juga hasil **benchmark dari website bun** sebagai pembanding. 📊
+
+---
+
+## ⚙️ Parameter Benchmark
+
+Untuk benchmark sendiri, ada beberapa parameter. Dibawah ini parameter yang biasa dipakai untuk menentukan benchmark aplikasi.
+
+- 🚀 Startup Time
+- ⏱️ Execution Time / Throughput
+- 🧠 Memory Usage
+- 💻 CPU Usage
+- 📂 File I/O Performance
+- 🌐 HTTP Server Performance
+- 📦 Package Install Time
+- ❄️ Cold Build Time
+- 🧵 Concurrency Handling
+- 🌍 Compatibility & Ecosystem Overhead
+
+---
+
+## 🛠️ Tools yang Digunakan
+
+Jika benchmark dilakukan manual, akan *takes time* banget dan hasilnya bisa kurang akurat. Oleh karena itu, kita akan melakukan dengan salah satu dari beberapa tools benchmark yang biasa dipakai. Dari website resmi bun [https://bun.sh/](https://bun.sh/) disarankan menggunakan oha atau bombardier. Kita lihat apa saja tools benchmark yang biasa dipakai.
+
+- autocannon – HTTP Benchmark CLI
+- wrk – HTTP performance benchmark tool
+- hyperfine – CLI execution time comparison
+- time – Linux basic time command
+- top/htop atau **Task Manager** – untuk lihat CPU/Memory
+- oha atau bombardier – HTTP benchmarking
+
+<Card className="my-6 p-6 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-600">
+  <div className="text-sm">
+    **📌 Note dari README Benchmark Express**
+
+    [https://github.com/oven-sh/bun/blob/main/bench/express/README.md](https://github.com/oven-sh/bun/blob/main/bench/express/README.md)
+
+    Disarankan menggunakan **oha** atau **bombardier** untuk benchmark. Tidak disarankan pakai ab karena menggunakan HTTP/1.0 yang sudah usang. autocannon juga tidak disarankan karena keterbatasan performa node:http client untuk mengukur kecepatan HTTP server milik Bun. Gunakan Accept-Encoding: identity untuk mencegah kompresi di Deno.
+  </div>
+</Card>
+
+---
+
+## 🧪 Langkah Benchmark Express
+
+1. git clone https://github.com/oven-sh/bun.git
+2. Masuk ke folder ./bench/express
+3. Install bombardier
+4. Jalankan benchmark untuk masing-masing runtime
+
+---
+
+## 📈 Hasil Benchmark
+
+### ✅ Benchmark Bun
+
+Hasil benchmark menggunakan Bun menunjukkan performa yang sangat impressive dengan request per second yang tinggi dan latency yang rendah.
+
+### ✅ Benchmark Node.js
+
+Node.js menunjukkan performa yang stabil dengan ekosistem yang matang, meskipun dari segi kecepatan mulai tertinggal dibanding Bun.
+
+### ✅ Benchmark Deno
+
+Sebelum melakukan benchmark, code program ada yang perlu diganti & deno tidak ada deno install karena saat running deno, akan install dependencies library yang dibutuhkan terlebih dahulu kemudian running aplikasi.
+
+Deno menunjukkan performa yang menjanjikan dengan keamanan bawaan yang lebih baik.
+
+### ✅ Benchmark Dari website Bun
+
+Dari berbagai metrik yang tersedia di website resmi Bun, terlihat jelas bahwa Bun unggul dalam berbagai aspek performa.
+
+---
+
+## 📌 Kesimpulan
+
+💡 Kalau kamu ingin bikin server **cepat dan ringan**, ➡️ **Bun bisa jadi pilihan utama**.
+
+📦 Kalau butuh **ekosistem library yang stabil**, ➡️ **Node.js masih sangat relevan**.
+
+🔐 Kalau ingin **runtime modern & secure**, ➡️ **Deno layak dipertimbangkan**.
+
+---
+
+### 💬 Catatan Tambahan:
+
+- 🔥 Dari berbagai metrik, **Bun secara konsisten unggul performa**.
+- 🐢 **Node.js mulai tertinggal**, walau secara ekosistem tetap juara.
+- 🌱 **Deno menunjukkan potensi menjanjikan**, terutama dalam latensi dan efisiensi.
+
+---
+
+## Disclaimer
+
+Hasil benchmark ini bisa berbeda dengan hasil yang Kamu lakukan sendiri ya. Dan ini hanya eksperimen sederhana untuk mengetahui benchmark masing-masing.
+
+---
+
+Kalau setuju atau punya insight tambahan, feel free komen ya! 👇😊
+
+#Nodejs #Bun #Deno #Benchmark #WebDevelopment #JavaScript #PerformanceTest

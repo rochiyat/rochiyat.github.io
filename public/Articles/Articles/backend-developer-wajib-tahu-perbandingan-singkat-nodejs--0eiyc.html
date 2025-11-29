@@ -1,0 +1,153 @@
+<html>
+<head>
+  <title>Backend Developer Wajib Tahu! Perbandingan Singkat Node.js, Deno, dan Bun 🔍</title>
+  <style>
+    body {
+      margin: 0 auto;
+      width: 744px;
+      font-family: Source Serif Pro, serif;
+      line-height: 32px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 21px;
+    }
+    h1, h2, h3 {
+      font-family: Source Sans Pro, Helvetica, Arial, sans-serif;
+    }
+    h1 a, h1 a:visited {
+      color: inherit;
+      text-decoration: none;
+    }
+    h1 {
+      line-height: 48px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 42px;
+      margin: 32px 0 20px;
+    }
+    h2 {
+      line-height: 32px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 26px;
+      margin: 28px 0;
+    }
+    h3 {
+      line-height: 28px;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 21px;
+      margin: 24px 0;
+    }
+    p {
+      margin: 32px 0;
+    }
+    .created, .published {
+      color: rgba(0, 0, 0, 0.55);
+      font-size: 15px;
+      line-height: 15px;
+      margin: 20px 0;
+    }
+    .created + .published {
+      margin-top: -12px;
+    }
+    blockquote {
+      font-family: Georgia, Source Serif Pro, serif;
+      font-style: italic;
+      font-size: 24px;
+      line-height: 36px;
+      margin: 48px 120px;
+      text-align: center;
+    }
+    a {
+      word-wrap: break-word;
+      outline: none;
+      text-decoration: none;
+      background-color: transparent;
+      border: 0;
+      color: #008CC9;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    a:visited {
+      color: #8C68CB;
+    }
+    .center {
+      text-align: center;
+    }
+    iframe {
+      display: block;
+      margin: 44px auto;
+    }
+    *:not(pre) + pre, pre:first-of-type {
+      margin-top: 32px;
+      padding-top: 32px;
+    }
+    pre:only-of-type {
+      margin: 32px 0;
+      padding: 32px;
+    }
+    pre {
+      background: #F3F6F8;
+      overflow-x: auto;
+      display: block;
+      font-size: 13px;
+      font-family: monospace;
+      line-height: 13px;
+      padding: 0 32px 32px;
+      white-space: pre;
+    }
+    a.embedded {
+      background: #F3F6F8;
+      display: block;
+      padding: 32px;
+      margin: 32px 0;
+    }
+    img {
+      height: auto;
+      max-width: 100%;
+    }
+    .slate-image-embed__resize-full-width img {
+      width: 100%;
+    }
+    .series-logo {
+      width: 48px;
+      height: 48px;
+      box-sizing: border-box;
+      background-clip: content-box;
+      border: 4px solid transparent;
+      border-radius: 6px;
+      object-fit: scale-down;
+      float: left;
+    }
+    .series-title {
+      font-size: 16px;
+      font-weight: 600;
+      vertical-align: top;
+    }
+    .series-description {
+      color: rgba(0,0,0,.6);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    div {
+      margin: 32px 0;
+    }
+  </style>
+</head>
+<body>
+    <img class="series-logo" src="https://media.licdn.com/dms/image/v2/D5612AQHVvvRpTU9Kjg/series-logo_image-shrink_300_300/B56ZV1CM_tHQAQ-/0/1741425267361?e=1766016000&v=beta&t=iEAS06AInM9ggRZQ-IixdcGj8qzA9RBCzCe57OgLaak" />
+    <h3>
+      <span class="series-title">🚀 Tech Stack Boilerplate</span>
+      </br>
+      <span class="series-description">🚀 Memulai Proyek dengan Cepat & Efisien </span>
+    </h3>
+    <img src="https://media.licdn.com/mediaD5612AQHY6ZNWq235lQ" alt="" title="" />
+      <h1><a href="https://www.linkedin.com/pulse/backend-developer-wajib-tahu-perbandingan-singkat-nodejs--0eiyc">Backend Developer Wajib Tahu! Perbandingan Singkat Node.js, Deno, dan Bun 🔍</a></h1>
+    <p class="created">Created on 2025-03-18 01:39</p>
+  <p class="published">Published on 2025-03-18 01:59</p>
+  <div><h3>🚀 Pendahuluan</h3><p>Dalam dunia pemrograman JavaScript modern - terutama di sisi backend - kita sering hanya mengenal <strong>Node.js</strong> saja. Padahal, ada beberapa runtime lain yang bisa menjalankan JavaScript sebagai backend juga, lho! 😲</p><p>Selain <strong>Node.js</strong>, ada juga <strong>Deno</strong> dan <strong>Bun</strong>. Sudah pernah dengar? 🤔</p><p>Tenang, kita bahas secara ringkas tentang ketiganya di sini. Kenapa ringkas? Karena info lebih lengkap bisa kamu gali di official docs atau artikel lainnya. Hehe 😄</p><hr><h3>🟦 Node.js</h3><ul><li><p><strong>Runtime:</strong> V8 Engine (punya Google Chrome).</p></li><li><p><strong>Ditambah dengan:</strong> C++ bindings, libuv (untuk async I/O), serta modul internal (fs, http, dll).</p></li><li><p><strong>Kelebihan V8:</strong> Cepat, stabil, dan sudah battle-tested karena juga dipakai di Chrome.</p></li><li><p><strong>Kapan cocok pakai Node.js?</strong> Kalau kamu butuh stabilitas, dukungan komunitas besar, dan ekosistem DevOps yang matang. Cocok untuk aplikasi skala besar dan production-ready. 💼</p></li></ul><hr><h3>🟧 Deno</h3><ul><li><p><strong>Runtime:</strong> Masih pakai V8 Engine seperti Node.js.</p></li><li><p><strong>Namun ditulis dengan:</strong> <strong>Rust</strong>, bukan C++.</p></li><li><p><strong>Dilengkapi dengan:</strong> Built-in permission system 🔐, native TypeScript transpilation, dan modern tooling.</p></li><li><p><strong>Fun fact:</strong> <em>Deno = anagram dari Node</em> 😄</p></li><li><p><strong>Kapan cocok pakai Deno?</strong> Kalau kamu suka eksplorasi teknologi baru, butuh native TS, dan ingin keamanan sejak awal. Ideal untuk proyek baru yang tidak terlalu bergantung pada ekosistem NPM.</p></li></ul><hr><h3>🟩 Bun</h3><ul><li><p><strong>Runtime:</strong> <strong>JavaScriptCore (JSC)</strong> — engine milik Apple (dipakai di Safari).</p></li><li><p><strong>Dibangun dengan:</strong> <strong>Zig</strong> — bahasa sistem yang cepat dan ringan ⚡️.</p></li><li><p><strong>Kenapa Bun nggak pakai V8?</strong> Karena <strong>JavaScriptCore</strong> unggul dalam hal startup time dan efisiensi memori. Fokus utama Bun memang kecepatan dan efisiensi.</p></li><li><p><strong>Kapan cocok pakai Bun?</strong> Kalau kamu ingin performa tinggi: startup cepat, CLI tools gesit, dan microservice ringan. Cocok buat developer yang haus efisiensi &amp; respons kilat! ⚡🔥</p></li></ul><hr><h2>♻️Perbandingan</h2><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQFeKDn7K1Knvw" src="https://media.licdn.com/dms/image/v2/D5612AQFeKDn7K1Knvw/article-inline_image-shrink_1500_2232/B56ZWm8fB4HQAU-/0/1742262629605?e=1765411200&amp;v=beta&amp;t=TI6ZqUa5NAEK3RNZF06VAX_hDL3qJNIokUwnc4eoiis"><figcaption>Perbandingan Runtime Performance</figcaption></figure><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQF2g7RcG424_g" src="https://media.licdn.com/dms/image/v2/D5612AQF2g7RcG424_g/article-inline_image-shrink_1000_1488/B56ZWm9GT7GQAQ-/0/1742262789788?e=1765411200&amp;v=beta&amp;t=WHE2wvnZaxU3Wv5R57GOaO8ZhOC1UzXDqlndJupg8gA"><figcaption>Perbandingan Benchmark</figcaption></figure><figure><img data-media-urn="urn:li:digitalmediaAsset:D5612AQHCkYoQAm-fTA" src="https://media.licdn.com/dms/image/v2/D5612AQHCkYoQAm-fTA/article-inline_image-shrink_1000_1488/B56ZWm9RO6GoAQ-/0/1742262834497?e=1765411200&amp;v=beta&amp;t=hphlczCn1ccHP1RkzRKNLOttFx6KK8KT052AidJY3q0"><figcaption>Perbandingan Runtime Javascript</figcaption></figure><hr><h3>📌 Resume Singkat</h3><p>Runtime Keunggulan Cocok Untuk</p><p><strong>Node.js -&gt; </strong>Stabil, ekosistem luas 🌐Aplikasi production besar.</p><p><strong>Deno -&gt; </strong>Secure by default, native TS 🔒Proyek modern dan eksperimen</p><p><strong>Bun -&gt; </strong>Super cepat &amp; ringan ⚡Proyek efisien, microservice, tooling</p><hr><p>Kalau saya pribadi sih, lagi tertarik memperdalam <strong>Bun</strong> - ringan dan cepat banget! 🔥 Sama kayak tren <strong>LLM Gamma 3 dari Google</strong> - kecil tapi ngebut. Efisiensi &amp; kecepatan ini bisa jadi parameter penting untuk masa depan teknologi 😉💡</p></div>
+</body>
+</html>

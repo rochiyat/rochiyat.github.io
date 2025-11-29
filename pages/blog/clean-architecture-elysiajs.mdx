@@ -1,0 +1,134 @@
+---
+title: '🚀 Membangun Aplikasi Web dengan Clean Architecture & Elysia.js'
+date: '2025-05-27'
+author: 'Rochiyat'
+description: 'Belajar implementasi Clean Architecture dengan Elysia.js - framework web ringan berbasis Bun yang super cepat dan developer-friendly.'
+tags: ['Elysia.js', 'Clean Architecture', 'Bun', 'Backend', 'TypeScript']
+category: 'Tech Stack Boilerplate'
+---
+
+import { Card } from '@/components/ui/Card'
+
+# 🚀 Membangun Aplikasi Web dengan Clean Architecture & Elysia.js: Kombinasi Ringan nan Powerful
+
+<div className="text-sm text-gray-600 dark:text-gray-400 mb-8">
+  Published on May 27, 2025 · 7 min read
+</div>
+
+Dalam dunia pengembangan backend JavaScript, kita sudah familiar dengan berbagai framework seperti Express, Fastify, bahkan Hapi. Tapi pernahkah kamu mencoba **Elysia.js**?
+
+Mungkin teman-teman sudah tahu nestJS di nodeJS ya? Nah, Elysia.js ini nestJS nya bun. Jadi framework yang dibangun dengan runtime bun.
+
+Belakangan ini, saya menemukan repositori menarik: 🔗 [clean-architecture-elysia](https://github.com/aymaneallaoui/clean-architecture-elysia) oleh [Aymane Allaoui](https://github.com/aymaneallaoui)
+
+Repo ini tidak hanya menunjukkan cara menggunakan Elysia.js sebagai web framework super ringan berbasis [Bun](https://bun.sh/), tapi juga mengimplementasikan **Clean Architecture** dengan cara yang bersih, modular, dan mudah dipahami. Dan sudah ada authentication login & send otp via email sebagai salah satu fiturnya.
+
+---
+
+## 🧱 Arsitektur yang Terstruktur, Tidak Asal Jalan
+
+Clean Architecture bukan sekadar buzzword. Di repo ini, kita bisa belajar bagaimana menyusun kode menjadi beberapa lapisan:
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">Domain</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Tempat entity dan use-case didefinisikan
+    </p>
+  </Card>
+  
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">Application</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Interface antara domain dan adapter
+    </p>
+  </Card>
+  
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">Infrastructure</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Database (PostgreSQL) dan ORM (Prisma)
+    </p>
+  </Card>
+  
+  <Card>
+    <h4 className="font-bold text-gray-900 dark:text-white mb-2">Presentation (web)</h4>
+    <p className="text-sm text-gray-600 dark:text-gray-400">
+      Layer untuk menangani request & response lewat Elysia.js
+    </p>
+  </Card>
+</div>
+
+Dengan pemisahan ini, setiap lapisan punya tanggung jawab yang jelas, dan kita bisa mengganti infrastruktur (misalnya dari PostgreSQL ke MySQL) tanpa banyak mengubah bagian lain.
+
+---
+
+## ⚙️ Teknologi yang Digunakan
+
+Beberapa teknologi yang menarik dalam project ini:
+
+- **Bun**: runtime JavaScript alternatif dengan kecepatan tinggi.
+- **Elysia.js**: framework web ringan tapi sangat ekspresif.
+- **Prisma ORM**: query database dengan cara yang deklaratif.
+- **Zod**: untuk validasi input dan schema definition.
+- **SQLite**: database ringan untuk kebutuhan lokal/dev.
+
+Semua disusun dengan *developer experience* yang nyaman: struktur folder rapi, setup jelas, dan pendekatan testable.
+
+---
+
+## 📌 Fitur yang disediakan
+
+<Card className="my-6 p-6 bg-blue-50 dark:bg-blue-900/20">
+  <ul className="space-y-2 text-sm">
+    <li>🧩 **Clean Architecture**: Domain-driven design with clear separation of concerns</li>
+    <li>🔐 **Authentication**: JWT-based authentication system</li>
+    <li>👤 **User Management**: Complete user entity with profile management</li>
+    <li>🔄 **Database**: Drizzle ORM with PostgreSQL</li>
+    <li>📝 **Validation**: End-to-end type safety with Elysia's built-in validation</li>
+    <li>📚 **API Documentation**: Auto-generated OpenAPI/Swagger documentation</li>
+    <li>🧪 **Testing**: Unit and integration tests setup</li>
+    <li>🧠 **Type Safety**: Full TypeScript support with end-to-end type safety</li>
+    <li>🔍 **Error Handling**: Comprehensive error handling system</li>
+    <li>🔄 **Migrations**: Database migration system</li>
+    <li>⛔ **Rate Limiting**: Rating limiting using redis</li>
+    <li>📫 **OTP Mail Verification**: Mail verification using resend and react email</li>
+  </ul>
+</Card>
+
+---
+
+## ✨ Kenapa Ini Layak Dicoba?
+
+Kalau kamu:
+
+<Card className="my-6 p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+  <ul className="space-y-2">
+    <li>✅ Ingin eksplorasi arsitektur bersih dalam JavaScript/TypeScript.</li>
+    <li>✅ Mau coba hal baru di luar Express atau Nest.js.</li>
+    <li>✅ Tertarik dengan ekosistem Bun dan performa cepatnya.</li>
+    <li>✅ Pengen belajar bagaimana memisahkan concern dalam aplikasi backend.</li>
+  </ul>
+</Card>
+
+Maka ini project yang pas buat dicoba atau bahkan di-fork untuk dijadikan starter project pribadi.
+
+---
+
+## 💬 Penutup
+
+Menurut saya, clean-architecture-elysia adalah contoh *how to do it right* dalam membangun backend modern: ringan, cepat, dan tetap terstruktur. Cocok buat yang ingin mulai kecil tapi scalable.
+
+Kalau kamu sudah coba project ini, atau bahkan tertarik untuk adaptasi ke production, feel free untuk share insight-mu di kolom komentar ya.
+
+Dan kalau kamu punya project serupa, drop link-nya juga — mari saling belajar! 🙌
+
+---
+
+Kalau kamu suka konten seperti ini, jangan lupa subscribe newsletter ini ya! 📩
+
+---
+
+<div className="mt-8 text-sm text-gray-600 dark:text-gray-400">
+  Tags: #Boilerplate #Elysia #Bun #CleanArchitecture #Backend #TypeScript
+</div>
