@@ -2,6 +2,11 @@ import React from 'react'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 
 const config: DocsThemeConfig = {
+  components: {
+    // Avoid invalid nested <p> in MDX compositions (common hydration mismatch source).
+    // Using <div> preserves layout while keeping HTML valid.
+    p: ({ children, ...props }) => <div {...props}>{children}</div>,
+  },
   logo: (
     <span style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
       <span style={{ 

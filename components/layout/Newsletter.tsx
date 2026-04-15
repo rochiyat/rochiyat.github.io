@@ -35,9 +35,9 @@ export function Newsletter() {
         <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
           Stay Updated
         </h2>
-        <p className="mt-4 text-lg text-blue-100">
+        <div className="mt-4 text-lg text-blue-100">
           Get the latest articles and updates delivered to your inbox. No spam, unsubscribe anytime.
-        </p>
+        </div>
         
         <form onSubmit={handleSubmit} className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <input
@@ -60,18 +60,18 @@ export function Newsletter() {
         </form>
 
         {message && (
-          <p
+          <div
             className={`mt-4 text-sm font-medium ${
               status === 'success' ? 'text-green-200' : 'text-red-200'
             }`}
           >
             {message}
-          </p>
+          </div>
         )}
 
-        <p className="mt-4 text-xs text-blue-200">
+        <div className="mt-4 text-xs text-blue-200">
           We respect your privacy. Unsubscribe at any time.
-        </p>
+        </div>
       </div>
     </div>
   )
