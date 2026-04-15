@@ -17,5 +17,4 @@ module.exports = withNextra({
   trailingSlash: true,
   reactStrictMode: true,
   swcMinify: true,
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
 })

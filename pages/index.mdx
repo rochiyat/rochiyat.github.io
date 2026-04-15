@@ -3,6 +3,7 @@ import { Newsletter } from '@/components/layout/Newsletter'
 import { ProjectCard } from '@/components/projects/ProjectCard'
 import { TechStack } from '@/components/projects/TechStack'
 import { Card } from '@/components/ui/Card'
+import { GitHubActivity } from '@/components/features/GitHubActivity'
 
 <Hero
   title="Hi, I'm Rochiyat 👨🏻‍💻"
@@ -142,24 +143,7 @@ import { Card } from '@/components/ui/Card'
 
 ## 📊 GitHub Activity
 
-<div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
-  <Card className="text-center">
-    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">350+</div>
-    <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">Contributions</div>
-  </Card>
-  <Card className="text-center">
-    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">25</div>
-    <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">Repositories</div>
-  </Card>
-  <Card className="text-center">
-    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">500+</div>
-    <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">Stars</div>
-  </Card>
-  <Card className="text-center">
-    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">80+</div>
-    <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">Followers</div>
-  </Card>
-</div>
+<GitHubActivity username="rochiyat" />
 
 ## 🤝 Let's Work Together
 
