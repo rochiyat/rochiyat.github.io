@@ -4,7 +4,7 @@ REM Script untuk setting repo ke akunB (pribadi)
 REM Author: Rochiyat
 REM ============================================
 
-SET REPO_PATH=D:\PROJECT\MYSELF\CODE\GITHUB\rochiyat.github.io
+SET REPO_PATH=D:\PROJECT\MYSELF\CODE\GITHUB\ROCHIYAT\rochiyat.github.io
 SET GIT_USER_NAME="Rochiyat"
 SET GIT_USER_EMAIL="rochiyat@gmail.com"
 SET GITHUB_USER=rochiyat

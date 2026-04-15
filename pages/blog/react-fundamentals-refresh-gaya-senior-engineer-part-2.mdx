@@ -1,0 +1,418 @@
+---
+title: "React Fundamentals Refresh — Gaya Senior Engineer - Part 2"
+date: "2026-04-15"
+author: "Rochiyat"
+description: "Part 2: controlled inputs, batas event handler vs Effect, custom hooks, useReducer + Context, useRef, dan optimisasi performa yang benar."
+tags: ["React", "Fundamentals", "Hooks", "useEffect", "State"]
+category: "React & Next.js"
+---
+
+# React Fundamentals Refresh — Gaya Senior Engineer - Part 2
+
+Selasa sore. Dashboard helpdesk yang kemarin masih “cukup buat demo” sekarang dipakai tim operasional sungguhan. Requirement baru datang bertubi-tubi:
+
+- operator harus bisa assign owner lewat form
+- search harus nembak API, bukan filter lokal saja
+- header, sidebar, dan detail panel harus berbagi state yang sama
+- saat ticket dipilih, input assignee harus otomatis fokus
+- UI mulai terasa berat
+
+Di fase ini, bug React biasanya bukan lagi soal syntax JSX. Yang bikin kusut justru tiga hal: bentuk state yang salah, `useEffect` dipakai untuk hal yang bukan tugasnya, dan optimisasi dini. Docs React menekankan state sebaiknya digrupkan jika berubah bersama, serta menghindari contradiction, redundant, dan duplicate state. Untuk elemen form seperti `<input>`, React modern tetap sangat bertumpu pada controlled inputs: `value` atau `checked` datang dari state, dan perubahan user dibaca lewat `onChange`. ([React][1])
+
+### 1. Form: jangan simpan lebih banyak state dari yang dibutuhkan
+
+Bayangkan operator membuka detail ticket dan ingin assign ticket ke engineer tertentu, sambil menambahkan note.
+
+```jsx
+import { useState } from "react";
+
+function AssignTicketForm({ initialOwner = "", onAssign }) {
+  const [form, setForm] = useState({
+    owner: initialOwner,
+    note: "",
+    priority: "normal",
+  });
+
+  const canSubmit = form.owner.trim() !== "" && form.note.trim().length >= 10;
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!canSubmit) return;
+
+    onAssign(form);
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Owner
+        <input name="owner" value={form.owner} onChange={handleChange} />
+      </label>
+
+      <label>
+        Note
+        <textarea name="note" value={form.note} onChange={handleChange} />
+      </label>
+
+      <label>
+        Priority
+        <select name="priority" value={form.priority} onChange={handleChange}>
+          <option value="low">Low</option>
+          <option value="normal">Normal</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+
+      <button disabled={!canSubmit}>Assign</button>
+    </form>
+  );
+}
+```
+
+Yang penting di sini bukan `input`-nya. Yang penting adalah **apa yang tidak kita simpan**. `canSubmit` tidak perlu jadi state. Ia cukup dihitung saat render. Ini selaras dengan prinsip React: simpan state sesedikit mungkin, hindari redundant state, dan biarkan UI mengikuti state saat ini. Controlled inputs sendiri memang bekerja dengan pola `value`/`checked` + `onChange`. ([React][1])
+
+Anti-pattern yang sering muncul saat balik ke React:
+
+```jsx
+const [canSubmit, setCanSubmit] = useState(false);
+
+useEffect(() => {
+  setCanSubmit(form.owner.trim() !== "" && form.note.trim().length >= 10);
+}, [form]);
+```
+
+Ini terlihat “rapi”, padahal justru menambah state ganda. Kalau sebuah nilai bisa dihitung saat render, React docs mendorong untuk **tidak** menyinkronkannya lagi dengan Effect. Effects adalah escape hatch untuk sinkronisasi dengan sistem eksternal, bukan untuk merapikan data turunan di dalam React itu sendiri. ([React][2])
+
+---
+
+### 2. Event handler vs Effect: ini garis batas paling penting
+
+Rabu pagi, PM datang lagi: “ketika user mengetik query, ambil hasil pencarian dari server.”
+
+Di sinilah banyak orang salah tempat menaruh logic.
+
+Aturan praktisnya begini:
+
+- kalau logic harus jalan **karena user melakukan aksi spesifik**, taruh di event handler
+- kalau logic harus jalan **karena UI sekarang perlu tersinkron dengan sistem luar**, taruh di Effect
+
+React docs menekankan event handlers berjalan karena interaksi tertentu, sedangkan Effects bersifat reactive dan melakukan re-sync saat props/state yang dibacanya berubah. Dependency array bukan tombol “kapan saya ingin ini jalan”, melainkan deskripsi nilai reactive apa saja yang dipakai Effect untuk sinkronisasi. ([React][3])
+
+Contoh yang tepat untuk submit form:
+
+```jsx
+function handleSubmit(e) {
+  e.preventDefault();
+  saveAssignment(form);
+}
+```
+
+Kenapa event handler? Karena submit memang terjadi saat user menekan tombol submit.
+
+Contoh yang tepat untuk search API berdasarkan query:
+
+```jsx
+import { useEffect, useState } from "react";
+
+function useTicketSearch(query) {
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!query.trim()) {
+      setResults([]);
+      return;
+    }
+
+    let ignore = false;
+    setLoading(true);
+
+    async function load() {
+      const response = await fetch(
+        `/api/tickets?query=${encodeURIComponent(query)}`,
+      );
+      const data = await response.json();
+
+      if (!ignore) {
+        setResults(data);
+        setLoading(false);
+      }
+    }
+
+    load();
+
+    return () => {
+      ignore = true;
+    };
+  }, [query]);
+
+  return { results, loading };
+}
+```
+
+Ini cocok jadi Effect karena komponen sedang menyinkronkan diri ke sistem luar, yaitu network. React docs juga mengingatkan bahwa fetch, subscribe, dan connect umumnya perlu cleanup; untuk fetch, cleanup bisa berupa cancel atau ignore agar response lama tidak menimpa state terbaru. ([React][4])
+
+---
+
+### 3. Custom Hook: abstraksikan perilaku, bukan markup
+
+Kamis siang. Search ticket sekarang dipakai di tiga tempat: header, panel triage, dan modal relasi ticket. Di titik ini jangan copy-paste `useEffect + useState` ke mana-mana.
+
+Custom Hooks di React dibuat dengan menggabungkan hooks yang sudah ada untuk kebutuhan aplikasi sendiri. Rules of Hooks tetap berlaku: panggil hooks hanya di top level komponen atau custom hook, bukan di `if`, loop, nested function, atau handler. ([React][5])
+
+Contoh yang sehat:
+
+```jsx
+function useDebouncedValue(value, delay = 300) {
+  const [debounced, setDebounced] = useState(value);
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setDebounced(value);
+    }, delay);
+
+    return () => clearTimeout(id);
+  }, [value, delay]);
+
+  return debounced;
+}
+```
+
+Lalu dipakai seperti ini:
+
+```jsx
+function TicketSearchBox() {
+  const [query, setQuery] = useState("");
+  const debouncedQuery = useDebouncedValue(query, 250);
+  const { results, loading } = useTicketSearch(debouncedQuery);
+
+  return (
+    <>
+      <input
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Cari ticket..."
+      />
+      {loading ? <span>Loading...</span> : <SearchResults items={results} />}
+    </>
+  );
+}
+```
+
+Poin pentingnya: custom hook bukan “service layer tersembunyi”. Ia tetap hidup di dunia React. Ia adalah cara membungkus **logic stateful** yang reusable sehingga komponen tetap fokus pada UI. ([React][5])
+
+---
+
+### 4. Saat screen mulai kompleks: naik ke `useReducer`, lalu `Context`
+
+Jumat pagi. Sekarang satu layar triage punya banyak transisi state:
+
+- pilih ticket
+- ubah filter
+- assign owner
+- toggle status
+- update sort
+- reset panel
+
+Kalau semua update tersebar di banyak `setState`, layar cepat terasa seperti kumpulan patch. React docs secara eksplisit menyarankan reducer saat komponen punya banyak update state yang menyebar di banyak event handler. Context dipakai saat data yang sama harus tersedia dalam tree yang dalam tanpa prop drilling. Keduanya juga bisa digabung untuk state layar yang kompleks. ([React][6])
+
+```jsx
+import { createContext, useContext, useReducer } from "react";
+
+const TicketsStateContext = createContext(null);
+const TicketsDispatchContext = createContext(null);
+
+const initialState = {
+  tickets: [],
+  selectedId: null,
+  filter: "all",
+};
+
+function ticketsReducer(state, action) {
+  switch (action.type) {
+    case "tickets/loaded":
+      return {
+        ...state,
+        tickets: action.tickets,
+      };
+
+    case "ticket/selected":
+      return {
+        ...state,
+        selectedId: action.id,
+      };
+
+    case "filter/changed":
+      return {
+        ...state,
+        filter: action.filter,
+      };
+
+    case "ticket/assigned":
+      return {
+        ...state,
+        tickets: state.tickets.map((ticket) =>
+          ticket.id === action.id ? { ...ticket, owner: action.owner } : ticket,
+        ),
+      };
+
+    default:
+      throw new Error(`Unknown action: ${action.type}`);
+  }
+}
+
+export function TicketsProvider({ children }) {
+  const [state, dispatch] = useReducer(ticketsReducer, initialState);
+
+  return (
+    <TicketsStateContext.Provider value={state}>
+      <TicketsDispatchContext.Provider value={dispatch}>
+        {children}
+      </TicketsDispatchContext.Provider>
+    </TicketsStateContext.Provider>
+  );
+}
+
+export function useTicketsState() {
+  return useContext(TicketsStateContext);
+}
+
+export function useTicketsDispatch() {
+  return useContext(TicketsDispatchContext);
+}
+```
+
+Dengan pola ini, `HeaderFilter`, `TicketList`, dan `TicketDetail` tidak perlu terus menyalurkan props melewati komponen yang sebenarnya tidak peduli. Parent screen menjadi lebih seperti “boundary”, reducer jadi pusat transisi state, dan child tinggal menyatakan intent lewat `dispatch`. ([React][6])
+
+---
+
+### 5. `useRef`: saku rahasia, bukan state alternatif
+
+Sabtu siang, ada bug kecil tapi nyata: setiap ticket dipilih, operator ingin cursor langsung masuk ke input assignee. Ini bukan state render. Ini interaksi dengan DOM.
+
+React docs menjelaskan `useRef` dipakai untuk menyimpan nilai yang tidak dibutuhkan untuk rendering. Nilai `ref.current` mutable dan berubah **tanpa memicu re-render**. Karena itu, ref cocok untuk DOM node, timer ID, latest value tertentu, atau integrasi non-React. ([React][7])
+
+```jsx
+import { useEffect, useRef } from "react";
+
+function TicketDetail({ selectedId }) {
+  const assigneeInputRef = useRef(null);
+
+  useEffect(() => {
+    assigneeInputRef.current?.focus();
+  }, [selectedId]);
+
+  return <input ref={assigneeInputRef} placeholder="Assign owner..." />;
+}
+```
+
+Gunakan ref saat nilai itu **tidak memengaruhi tampilan**. Kalau nilai tersebut menentukan apa yang dirender—misalnya ticket mana yang aktif, filter apa yang dipilih, panel mana yang terbuka—itu bukan ref, itu state. React juga memperingatkan bahwa ref bukan tempat ideal untuk dibaca/ditulis saat render karena bisa menimbulkan nilai stale atau tidak konsisten. ([React][7])
+
+Side note senior-level: jangan buru-buru pindah ke `useLayoutEffect`. Docs React menyebut `useLayoutEffect` memblok repaint browser dan bisa memperlambat app jika dipakai berlebihan; sebisa mungkin tetap gunakan `useEffect`, kecuali kamu benar-benar perlu membaca/mengukur layout sebelum paint. ([React][8])
+
+---
+
+### 6. Performa: biasanya masalahnya bukan kurang `memo`
+
+Minggu pagi. Ada keluhan “React-nya berat”. Insting lama sering langsung ke `memo`, `useMemo`, atau `useCallback` di mana-mana. Padahal docs React justru menyorot sumber masalah yang lebih sering: chain of updates dari Effects yang mengubah state lagi dan lagi. Mereka juga menekankan render harus pure; kalau re-render menyebabkan glitch, itu bug logic yang perlu diperbaiki, bukan sekadar alasan menambah memoization. ([React][9])
+
+Aturan praktis yang jauh lebih efektif:
+
+1. rapikan bentuk state dulu
+2. hilangkan redundant state
+3. pindahkan nilai turunan kembali ke render
+4. kurangi Effect yang menulis state tanpa perlu
+5. baru ukur apakah komputasi tertentu memang mahal
+
+Kalau setelah itu memang ada komputasi mahal, `useMemo` boleh dipakai untuk cache hasil perhitungan. Tapi React docs mengingatkan bahwa `useMemo` adalah **optimisasi performa, bukan jaminan semantik**, dan cache bisa dibuang oleh React dalam kondisi tertentu. Jadi jangan gunakan `useMemo` untuk “membetulkan” logic. ([React][10])
+
+```jsx
+const groupedTickets = useMemo(() => {
+  return groupTicketsByOwner(tickets);
+}, [tickets]);
+```
+
+Dan kalau kamu memakai `memo` untuk child component:
+
+```jsx
+const TicketRow = memo(function TicketRow({ ticket, onSelect }) {
+  return <button onClick={() => onSelect(ticket.id)}>{ticket.title}</button>;
+});
+```
+
+perlakukan itu sebagai **optimisasi terukur**, bukan default style guide. React docs sangat jelas: `memo` membantu ketika render ulang benar-benar mahal dan props memang sering tetap sama, tetapi bukan pengganti render logic yang bersih. ([React][9])
+
+---
+
+### 7. Bonus modern note: `useEffectEvent`
+
+Ini bonus yang layak diingat kalau kamu refresh React modern. Kadang sebuah Effect perlu terkoneksi ulang saat `roomId` berubah, tetapi callback di dalamnya harus selalu membaca nilai terbaru tanpa ikut memicu reconnect. React sekarang mendokumentasikan `useEffectEvent` untuk memisahkan bagian “event-like” dari Effect reactive. ([React][11])
+
+```jsx
+import { useEffect, useEffectEvent } from "react";
+
+function ChatRoom({ roomId, currentUser }) {
+  const onConnected = useEffectEvent(() => {
+    console.log(`Connected as ${currentUser.name}`);
+  });
+
+  useEffect(() => {
+    const connection = createConnection(roomId);
+    connection.on("connected", onConnected);
+    connection.connect();
+
+    return () => connection.disconnect();
+  }, [roomId]);
+
+  return null;
+}
+```
+
+Poinnya bukan menghafal API baru. Poinnya adalah mental model: **event** dan **effect** itu dua dunia berbeda. Semakin jelas kamu memisahkan keduanya, semakin sedikit bug closure, dependency, dan reconnect tak sengaja. ([React][3])
+
+---
+
+## Cheat sheet yang perlu nempel lagi di kepala
+
+Kalau part 1 bisa diringkas sebagai **UI = f(state)**, maka part 2 adalah:
+
+- state minimal, tidak redundant
+- controlled inputs untuk form
+- event handler untuk aksi user
+- effect untuk sinkronisasi eksternal
+- custom hooks untuk reuse logic stateful
+- reducer untuk transisi state yang kompleks
+- context untuk sharing data dalam tree yang dalam
+- ref untuk nilai mutable yang tidak ikut render
+- `memo`/`useMemo` hanya setelah benar-benar perlu
+
+Itu hampir seluruh “React intuition” yang dibutuhkan untuk kembali produktif di codebase modern. Semua konsep ini sejalan dengan docs React saat ini: state structure yang rapi, Effects sebagai escape hatch, reducers untuk kompleksitas update, context untuk deep sharing, refs untuk nilai non-render, dan memoization sebagai optimisasi alih-alih fondasi arsitektur. ([React][1])
+
+---
+
+## Series: React fundamentals refresh
+
+- Baca Part 1: [`React fundamentals refresh — gaya senior engineer`](/blog/react-fundamentals-refresh-gaya-senior-engineer)
+- Kamu sedang membaca: **Part 2**
+
+---
+
+[1]: https://react.dev/learn/choosing-the-state-structure
+[2]: https://react.dev/learn/you-might-not-need-an-effect
+[3]: https://react.dev/learn/separating-events-from-effects
+[4]: https://react.dev/learn/synchronizing-with-effects
+[5]: https://react.dev/learn/reusing-logic-with-custom-hooks
+[6]: https://react.dev/learn/scaling-up-with-reducer-and-context
+[7]: https://react.dev/reference/react/useRef
+[8]: https://react.dev/reference/react/useLayoutEffect
+[9]: https://react.dev/reference/react/memo
+[10]: https://react.dev/reference/react/useMemo
+[11]: https://react.dev/reference/react/useEffectEvent

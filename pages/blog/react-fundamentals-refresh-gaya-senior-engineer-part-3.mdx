@@ -1,0 +1,314 @@
+---
+title: "React Fundamentals Refresh — Gaya Senior Engineer - Part 3"
+date: "2026-04-15"
+author: "Rochiyat"
+description: "Part 3: arsitektur harian — foldering, routing, data layer, server/client boundary, testing, dan code smell yang perlu dicegah dari PR."
+tags: ["React", "Fundamentals", "Architecture", "Next.js", "Testing"]
+category: "React & Next.js"
+---
+
+# React Fundamentals Refresh — Gaya Senior Engineer - Part 3
+
+Kamis malam. Dashboard helpdesk yang awalnya cuma demo sekarang resmi jadi produk internal. Tim support minta filter yang lebih kaya, tim ops minta assign massal, tim manajemen minta audit trail, dan engineer baru mulai masuk repo. Di titik ini, masalah React biasanya bukan lagi “cara pakai `useState`”, tapi “gimana repo ini tetap waras enam bulan ke depan”.
+
+Part 3 ini bukan tentang syntax. Ini tentang **arsitektur harian**: foldering, routing, data layer, server/client boundary, testing, dan cara mencium code smell di PR sebelum bug-nya hidup di production.
+
+## Adegan 1 — Sebelum memilih folder, pilih mode aplikasi
+
+React docs sekarang mendorong aplikasi baru dimulai dari **recommended framework**, bukan dari setup mentah yang kamu rakit sendiri. React juga secara eksplisit menyatakan **Create React App sudah deprecated**. Di halaman resmi “Creating a React App”, React saat ini menyorot **Next.js App Router** dan **React Router v7** sebagai opsi yang direkomendasikan, dan menjelaskan bahwa framework-framework ini mendukung CSR, SPA, SSG, sekaligus bisa mengaktifkan server-side rendering per route bila nanti dibutuhkan. Kalau framework memang tidak cocok, React punya jalur “build from scratch” yang dimulai dari build tool seperti **Vite**, **Parcel**, atau **RSBuild**. ([React][1])
+
+Cara berpikir senior-friendly-nya begini.
+
+Kalau aplikasimu butuh **server/client boundary yang jelas**, data fetching dekat ke server, kemungkinan SSR/streaming, dan full-stack React yang rapi, default modern yang paling natural adalah **Next.js App Router**. Kalau kamu ingin app React web yang sangat dekat ke Web APIs, suka pola route modules dan loaders/actions, dan ingin kontrol arsitektur yang lebih eksplisit, **React Router v7** adalah pilihan yang sangat masuk akal. React Router sendiri sekarang punya tiga mode — **Declarative**, **Data**, dan **Framework** — dan fitur-fiturnya bersifat aditif saat kamu naik mode. ([Next.js][2])
+
+Rule of thumb saya: **pilih runtime dulu, baru susun folder**. Kalau ini dibalik, kamu sering berakhir dengan repo generik yang terlihat “rapi” di awal, tapi tidak selaras dengan cara data, routing, dan rendering sebenarnya bekerja.
+
+## Adegan 2 — Musuh utama: folder berdasarkan jenis file
+
+Repo React yang mulai bau biasanya kelihatan seperti ini:
+
+```text
+components/
+hooks/
+services/
+utils/
+pages/
+store/
+```
+
+Sekilas tampak bersih. Tapi setelah fitur bertambah, `components/` jadi gudang, `hooks/` jadi tempat semua hal yang tidak jelas, `services/` jadi campuran HTTP client + business rules + side effects, dan ownership bisnis menghilang. Engineer baru tahu ada file `TicketAssignModal.tsx`, tapi tidak tahu di mana logic assignment hidup, siapa pemilik state-nya, atau route mana yang bertanggung jawab mengambil datanya.
+
+Struktur yang lebih tahan lama biasanya dibangun dari **boundary**, bukan dari jenis file. Mantra yang paling aman:
+
+**route owns data, feature owns business logic, shared owns generic UI, page composes.**
+
+Itu bukan hukum React, tapi heuristic yang sangat jarang mengecewakan.
+
+Blueprint generiknya seperti ini:
+
+```text
+src/
+  app/        # bootstrapping, providers, router, shell
+  routes/     # entry point tiap screen / route module
+  features/   # capability bisnis: tickets, auth, billing
+  shared/     # reusable ui, lib, types, tokens
+  tests/      # test helpers, fixtures, smoke/e2e support
+```
+
+Dengan bentuk ini, kalau ada engineer bertanya, “ubah alur assign ticket di mana?”, jawabannya harus menuju **satu feature folder**, bukan pencarian buta ke `components/`, `hooks/`, dan `services/`.
+
+## Adegan 3 — Dua blueprint nyata
+
+### A. Kalau pakai Next.js App Router
+
+```text
+app/
+  layout.tsx
+  tickets/
+    page.tsx
+    loading.tsx
+    [id]/
+      page.tsx
+      actions.ts
+      ClientToolbar.tsx
+features/
+  tickets/
+    components/
+    lib/
+    schema.ts
+shared/
+  ui/
+  lib/
+```
+
+Di Next.js App Router, router-nya **file-system based** dan memang dirancang untuk bekerja dengan **Server Components**, **Suspense**, dan **Server Functions**. Docs Next juga menempatkan project structure dan file conventions sebagai bagian inti dari alur belajarnya. Yang paling penting untuk mental model: **layouts** dan **pages** adalah **Server Components secara default**. Saat kamu butuh state, event handlers, `useEffect`, browser APIs, atau custom hooks, baru kamu turunkan interaktivitas ke **Client Components**. ([Next.js][2])
+
+Artinya, jangan refleks menaruh `'use client'` di puncak tree. Lebih sehat kalau page tetap server, lalu komponen interaktif dijadikan **client islands** kecil di daun. Keuntungannya praktis: data bisa diambil di server dekat ke sumbernya, secret tidak bocor ke client bundle, dan JavaScript yang dikirim ke browser lebih hemat. Next docs juga menekankan bahwa Server Components bisa fetch lewat `fetch`, ORM, atau database client langsung dari server. ([Next.js][3])
+
+Contoh bentuk yang sehat:
+
+```tsx
+// app/tickets/page.tsx
+import { getTickets } from "@/features/tickets/lib/server";
+import TicketTable from "@/features/tickets/components/TicketTable";
+import ClientToolbar from "./ClientToolbar";
+
+export default async function Page() {
+  const tickets = await getTickets();
+
+  return (
+    <>
+      <ClientToolbar />
+      <TicketTable tickets={tickets} />
+    </>
+  );
+}
+```
+
+Pola ini selaras dengan Next App Router: data route-critical diambil di server page, sedangkan interaksi kecil seperti filter, local state, atau shortcut keyboard hidup di Client Component. ([Next.js][3])
+
+### B. Kalau pakai React Router v7
+
+```text
+app/
+  routes.ts
+  routes/
+    dashboard.tsx
+    tickets.tsx
+    tickets.$id.tsx
+features/
+  tickets/
+    api.ts
+    model.ts
+    components/
+    hooks.ts
+shared/
+  ui/
+  lib/
+```
+
+Di React Router, arsitektur modernnya juga sangat route-centric. Dalam **Framework mode**, route dikonfigurasi di `app/routes.ts`, lalu setiap entry menunjuk ke route module yang menangani behavior screen tersebut. Docs React Router juga menjelaskan bahwa data untuk route disuplai lewat `loader` dan `clientLoader`, lalu hasilnya otomatis diserialisasi/deserialisasi untuk komponen route. ([React Router][4])
+
+Contoh bentuk route module:
+
+```tsx
+// app/routes/tickets.tsx
+export async function loader() {
+  return {
+    tickets: await getTickets(),
+  };
+}
+
+export default function TicketsRoute({ loaderData }) {
+  return <TicketTable tickets={loaderData.tickets} />;
+}
+```
+
+Pola ini membuat ownership sangat jelas: route bertanggung jawab atas data screen, feature bertanggung jawab atas komponen bisnis, dan shared cuma menampung hal yang benar-benar reusable. Itu jauh lebih stabil daripada model “semua fetch ada di custom hook acak”.
+
+## Adegan 4 — Data layer: taruh data di boundary yang benar
+
+Begitu router atau framework-mu punya konsep **route data**, gunakan itu. Data yang dibutuhkan untuk menampilkan sebuah layar sebaiknya diambil di **route boundary**, bukan diam-diam diambil oleh tiga leaf components berbeda lewat `useEffect`.
+
+Di Next App Router, Server Components memang dibuat untuk fetch data dekat ke sumbernya. Docs resminya menyebut bahwa Server Components bisa memakai async I/O seperti `fetch`, ORM, atau database langsung; dan karena render-nya terjadi di server, credential serta query logic tidak masuk ke client bundle. Di React Router, `loader` dan `clientLoader` memberi boundary serupa untuk route data. ([Next.js][5])
+
+Jadi, untuk layar seperti “Ticket Detail”, pembagian yang enak biasanya seperti ini:
+
+- **route/page**: ambil record ticket utama
+- **feature/tickets/lib**: adapter, schema, mapper, selector domain
+- **feature/tickets/components**: UI yang memang spesifik ke ticket
+- **client hooks**: debounced input, panel state, keyboard shortcuts, optimistic local interactions
+
+Custom hook tetap berguna, tapi sebaiknya dipakai untuk **reusable stateful client logic**, bukan dijadikan penyelamat universal untuk semua networking. Saat sebuah hook menyembunyikan ownership data, review PR jadi jauh lebih sulit.
+
+## Adegan 5 — Server boundary dan client boundary
+
+Ini area yang paling sering menentukan kualitas arsitektur React modern.
+
+Kalau kamu berada di Next App Router, ingat peta mental ini: **Server Components** untuk data fetching, akses secret, transformasi berat, dan render yang tidak perlu interaktivitas browser. **Client Components** untuk state, event handlers, `useEffect`, browser-only APIs, dan custom hooks. Next docs merinci pembagian ini cukup eksplisit. ([Next.js][3])
+
+Saya biasanya pakai satu aturan sederhana:
+**semakin dekat ke page/layout, semakin layak jadi server; semakin dekat ke tombol/input, semakin layak jadi client.**
+
+Itu bukan aturan absolut, tapi sangat membantu mencegah dua ekstrem buruk: seluruh halaman jadi client hanya karena satu tombol, atau seluruh interaktivitas dipaksa lewat props sampai tak terbaca.
+
+## Adegan 6 — State placement: jangan semua jadi global
+
+Begitu aplikasi membesar, senior programmer sering tergoda memecahkan semuanya dengan global store. Padahal docs React justru mengingatkan bahwa kualitas app sangat dipengaruhi oleh **bentuk state**: group related state, hindari contradiction, hindari redundant state, dan hindari duplication. Kalau sebuah nilai bisa dihitung saat render, jangan simpan lagi sebagai state tambahan. ([React][6])
+
+Heuristic yang paling aman:
+
+- **local UI state** tetap lokal: modal open/close, input value, active tab
+- **screen workflow state** naik ke reducer bila event handler mulai bercabang banyak
+- **cross-tree read-mostly values** baru naik ke context
+- **route data** tetap dimiliki route/page, jangan diduplikasi ke banyak store client tanpa alasan kuat
+
+React docs juga sangat jelas: saat update state tersebar ke banyak event handlers dan mulai terasa melelahkan, pindahkan ke **reducer**. Bonusnya, reducer adalah pure function yang bisa diekspor dan diuji terpisah. ([React][7])
+
+Contoh bau yang umum:
+
+```tsx
+const [tickets, setTickets] = useState([]);
+const [filteredTickets, setFilteredTickets] = useState([]);
+const [openCount, setOpenCount] = useState(0);
+const [selectedTicket, setSelectedTicket] = useState(null);
+```
+
+Kalau `filteredTickets`, `openCount`, atau bahkan `selectedTicket` bisa diturunkan dari `tickets` + `selectedId`, kamu sedang menanam bibit bug sinkronisasi. React docs menyebut ini redundant atau duplicated state. ([React][6])
+
+## Adegan 7 — Context itu obat khusus, bukan vitamin harian
+
+Context sangat berguna saat prop drilling mulai menyakitkan. React docs menjelaskannya sebagai cara membuat nilai tersedia untuk tree di bawah tanpa terus menerus mem-pass props lewat komponen tengah. ([React][8])
+
+Tapi context bukan alasan untuk membuat “global everything”. `useContext` akan membuat consumer bereaksi pada perubahan value provider, dan React docs juga menekankan bahwa saat value provider berubah, komponen yang membaca context itu akan ikut re-render. Kalau yang kamu pass adalah object/function baru setiap render, kamu bisa memicu re-render lebar yang sebenarnya tidak perlu. React docs bahkan menunjukkan optimisasi dengan `useMemo` dan `useCallback` untuk kasus context value berupa object/functions. ([React][9])
+
+Jadi pola yang sehat biasanya seperti ini:
+
+- auth user, theme, locale, feature flags → context masuk akal
+- local wizard state satu halaman → jangan buru-buru context
+- entity-specific workflow yang kompleks → reducer di boundary feature/screen sering lebih jernih daripada global context
+
+## Adegan 8 — Testing strategy yang tidak cepat busuk
+
+Untuk React modern, saya sarankan berpikir testing dalam tiga lapis.
+
+Lapis pertama: **pure logic**. Reducer, formatter, schema mapper, selector — ini murah diuji dan nilainya tinggi. React docs sendiri menyebut reducer bisa diuji terpisah karena dia pure function. ([React][7])
+
+Lapis kedua: **component/route behavior**. Di sini default modernnya bukan shallow render lama. React sudah mendeprecate `react-test-renderer`, dan sebagian besar `react-dom/test-utils` juga sudah dihapus; React team merekomendasikan migrasi ke `@testing-library/react` untuk pengalaman testing yang modern dan well-supported. Testing Library sendiri mendorong pendekatan yang fokus ke DOM dan cara user benar-benar memakai UI, bukan ke instance komponen atau detail internal. ([React][10])
+
+Lapis ketiga: **smoke E2E tipis** untuk flow kritis. Misalnya login, buka ticket, assign owner, close ticket. Ini tidak perlu banyak, tapi harus menjaga jalur bisnis paling penting tetap aman. Ini lebih berupa strategi engineering daripada aturan library.
+
+Kalau stack-mu berbasis Vite, **Vitest** sangat nyaman karena dia bisa membaca `vite.config.ts` root dan reuse alias/plugins yang sama dengan app. Itu mengurangi friction antara app config dan test config. ([Vitest][11])
+
+## Adegan 9 — Code smell yang saya cari duluan saat review PR
+
+1. **Satu tombol membuat seluruh page diberi `'use client'`.**
+   Di Next App Router, layouts dan pages default-nya Server Components. Kalau satu interaksi kecil membuat seluruh screen pindah ke client, biasanya boundary-nya belum tajam dan browser menerima JavaScript lebih banyak dari yang perlu. ([Next.js][3])
+
+2. **Route data diambil dari leaf `useEffect` yang tersebar.**
+   Kalau framework-mu sudah punya Server Components atau route loaders, menyembunyikan data fetching route-critical di leaf components biasanya membuat ownership kabur dan loading state berantakan. ([Next.js][5])
+
+3. **State ganda dan derived state disimpan ulang.**
+   Kalau saya melihat `items`, `filteredItems`, `visibleItems`, `count`, dan `selectedItem` semua disimpan sebagai state, alarm langsung bunyi. React docs menyuruh menghindari redundant dan duplicated state. ([React][6])
+
+4. **Terlalu banyak `setState` tersebar di event handlers.**
+   Saat layar punya banyak transisi dan semua logic update terpecah-pecah, reducer hampir selalu membuat PR lebih mudah dibaca dan lebih mudah diuji. ([React][7])
+
+5. **Context dijadikan gudang semua hal.**
+   Context membantu mengatasi prop drilling, tetapi perubahan value provider memicu re-render consumer. Kalau semua state dinaikkan ke context tanpa seleksi, kamu hanya memindahkan masalah, bukan menyelesaikannya. ([React][8])
+
+6. **Test masih bergantung pada shallow renderer atau internals.**
+   Di React modern, itu tanda repo belum ikut arah resmi ekosistem testing. React sendiri sudah mengarahkan developer ke Testing Library. ([React][10])
+
+7. **Strict Mode dimatikan “karena effect jalan dua kali”.**
+   Ini salah satu red flag terbesar. React justru merekomendasikan Strict Mode bersama ESLint plugin-nya, dan docs menjelaskan bahwa extra setup+cleanup cycle di development membantu menemukan bug halus lebih awal. Kalau kode hanya “aman” saat Strict Mode dimatikan, biasanya masalah aslinya belum dibereskan. ([React][12])
+
+## Bentuk final untuk study case helpdesk
+
+Kalau saya mengubah dashboard helpdesk tadi menjadi repo yang layak dipelihara, default saya kira-kira begini:
+
+```text
+src/
+  app/
+    providers.tsx
+    router.tsx
+    shell/
+  routes/
+    tickets/
+      index.tsx
+      detail.tsx
+  features/
+    tickets/
+      api/
+      model/
+      reducer.ts
+      selectors.ts
+      components/
+      tests/
+    assignment/
+      api/
+      components/
+      actions.ts
+  shared/
+    ui/
+    lib/
+    types/
+  tests/
+    e2e/
+    fixtures/
+```
+
+Lalu saya pegang aturan berikut:
+
+- route/page mengambil data layar
+- feature memegang reducer, selector, domain adapter, dan komponen bisnis
+- shared hanya untuk hal yang benar-benar reusable
+- test menilai perilaku yang terlihat user
+- Strict Mode tetap menyala
+- context dipakai hemat
+- derived state dihitung, bukan disalin
+
+Kalau satu engineer baru bisa membuka repo dan langsung menjawab “alur assign ticket hidup di folder mana?”, berarti strukturmu berhasil.
+
+---
+
+## Series: React fundamentals refresh
+
+- Mulai dari Part 1: [`React Fundamentals Refresh — Gaya Senior Engineer`](/blog/react-fundamentals-refresh-gaya-senior-engineer)
+- Lanjut Part 2: [`React Fundamentals Refresh — Gaya Senior Engineer - Part 2`](/blog/react-fundamentals-refresh-gaya-senior-engineer-part-2)
+- Kamu sedang membaca: **Part 3**
+
+---
+
+[1]: https://react.dev/learn/start-a-new-react-project
+[2]: https://nextjs.org/docs/app
+[3]: https://nextjs.org/docs/app/building-your-application/rendering
+[4]: https://reactrouter.com/en/main/start/overview
+[5]: https://nextjs.org/docs/app/building-your-application/data-fetching/fetching
+[6]: https://react.dev/learn/choosing-the-state-structure
+[7]: https://react.dev/learn/extracting-state-logic-into-a-reducer
+[8]: https://react.dev/learn/passing-data-deeply-with-context
+[9]: https://react.dev/reference/react/useContext
+[10]: https://react.dev/learn/testing
+[11]: https://vitest.dev/guide/
+[12]: https://react.dev/reference/react/StrictMode

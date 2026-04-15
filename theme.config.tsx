@@ -3,16 +3,7 @@ import { DocsThemeConfig } from 'nextra-theme-docs'
 
 const config: DocsThemeConfig = {
   logo: (
-    <span style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
-      <span style={{ 
-        background: 'linear-gradient(90deg, #3b82f6, #8b5cf6)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text'
-      }}>
-        Rochiyat
-      </span>
-    </span>
+    <span style={{ fontWeight: 650, fontSize: '1.05rem', letterSpacing: '-0.01em' }}>Rochiyat</span>
   ),
   project: {
     link: 'https://github.com/rochiyat',
@@ -75,7 +66,9 @@ const config: DocsThemeConfig = {
       <meta property="og:image" content="/images/og-image.png" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@rochiyat" />
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      <link rel="alternate icon" href="/favicon.ico" />
+      <link rel="shortcut icon" href="/favicon.ico" />
     </>
   ),
   primaryHue: 217,

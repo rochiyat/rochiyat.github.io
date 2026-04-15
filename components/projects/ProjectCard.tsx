@@ -70,9 +70,9 @@ export function ProjectCard({
         <h3 className="text-xl font-bold text-gray-900 dark:text-white">
           {title}
         </h3>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+        <div className="mt-2 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
           {description}
-        </p>
+        </div>
 
         <div className="mt-4 flex flex-wrap gap-2">
           {tags.map((tag, index) => (
