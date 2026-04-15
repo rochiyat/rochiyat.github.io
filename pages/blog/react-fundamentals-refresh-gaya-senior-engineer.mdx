@@ -1,0 +1,431 @@
+# React fundamentals refresh — gaya senior engineer
+
+Senin pagi. Kamu diminta takeover dashboard helpdesk internal. Yang masih nempel di kepala: class component, lifecycle, `setState`, mungkin Redux lama. React modern lebih gampang diingat dengan pola baru: function components, render yang pure, state sebagai snapshot, event handler untuk aksi user, dan Effect untuk sinkronisasi dengan dunia luar. Class components masih didukung, tapi docs resmi React merekomendasikan function components untuk code baru. ([React][1])
+
+React sendiri adalah library JavaScript untuk merender UI dari komponen-komponen reusable dan nestable. JSX biasanya dipakai untuk menulis markup di dalam komponen, sedangkan props adalah jalur data dari parent ke child, termasuk untuk object, array, dan function. React modern juga mendorong kita mendeskripsikan UI untuk setiap state, bukan menulis instruksi DOM satu per satu seperti “disable button”, “ubah text”, atau “tampilkan panel”. ([React][2])
+
+## Peta mental 2 menit
+
+Pegang lima kalimat ini dulu:
+
+- Render berarti React memanggil komponen untuk menghitung apa yang harus tampil. ([React][3])
+- State bukan variabel lokal biasa; tiap render menerima snapshot state-nya sendiri. ([React][4])
+- Render harus pure; side effect jangan ditaruh di render. ([React][5])
+- Effect dipakai untuk sinkronisasi dengan sistem di luar React setelah render/commit. ([React][5])
+- Hooks hanya dipanggil di top level function component atau custom hook, bukan di loop, condition, nested function, event handler, atau class component. ([React][6])
+
+---
+
+## Study case: Helpdesk Dashboard
+
+Bayangkan kamu sedang menyelamatkan dashboard tiket support yang harus jadi sore ini.
+
+Requirement-nya sengaja sederhana, tapi cukup kaya untuk me-refresh semua fundamental penting:
+
+- menampilkan daftar tiket
+- mencari tiket berdasarkan judul
+- filter status `open/closed`
+- memilih tiket untuk melihat detail
+- toggle status tiket
+- sinkronkan sesuatu ke dunia luar dengan `useEffect`
+
+---
+
+## Adegan 1 — Mulai dari bentuk UI, bukan dari state
+
+Senior engineer yang tenang tidak mulai dari `useState`. Dia mulai dari bentuk layar: bagian mana yang berdiri sendiri, mana yang hanya menerima data, dan mana yang akan jadi sumber state. React memang didesain untuk memecah UI menjadi komponen-komponen terisolasi yang bisa disusun ulang. ([React][2])
+
+```jsx
+function HelpdeskApp() {
+  return (
+    <>
+      <h1>Helpdesk Dashboard</h1>
+      <FilterBar />
+      <div className="layout">
+        <TicketList tickets={initialTickets} />
+        <TicketDetail ticket={initialTickets[0]} />
+      </div>
+    </>
+  );
+}
+```
+
+Di tahap ini, pikiranmu cukup satu: **pecah masalah menjadi komponen**. Misalnya:
+
+- `HelpdeskApp`: orkestrator
+- `FilterBar`: search + filter
+- `TicketList`: daftar tiket
+- `TicketDetail`: panel detail tiket
+
+Itu inti composition di React. Parent merangkai child, child menerima data lewat props. ([React][2])
+
+---
+
+## Adegan 2 — Beri UI “memori” dengan state
+
+Sekarang PM bilang, “bisa cari tiket dan pilih tiket?” Di sinilah state masuk. `useState` memberi dua hal: nilai state dan setter untuk mengubah state sekaligus memicu re-render. Yang perlu diingat: state tidak hidup di variabel lokal function-mu; React menyimpannya dan memberimu snapshot pada setiap render. ([React][7])
+
+```jsx
+import { useState } from "react";
+
+const initialTickets = [
+  { id: 1, title: "Checkout gagal di Safari", status: "open", owner: "Dina" },
+  {
+    id: 2,
+    title: "Email reset password lambat",
+    status: "closed",
+    owner: "Fikri",
+  },
+  {
+    id: 3,
+    title: "Promo code ter-apply dua kali",
+    status: "open",
+    owner: "Raka",
+  },
+];
+
+function HelpdeskApp() {
+  const [tickets, setTickets] = useState(initialTickets);
+  const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [selectedId, setSelectedId] = useState(initialTickets[0]?.id ?? null);
+}
+```
+
+Kenapa `selectedId`, bukan `selectedTicket`? Karena **simpan state seminimal mungkin**. Duplicate atau redundant state adalah sumber bug klasik. Kalau suatu nilai bisa dihitung dari state lain, biasanya lebih aman dihitung saat render, bukan disimpan lagi. ([React][8])
+
+---
+
+## Adegan 3 — Berpikir deklaratif: derive, jangan imperatif
+
+React paling enak dipakai saat kamu berhenti berpikir seperti “habis klik tombol, ubah DOM A, lalu DOM B, lalu hide panel C”. Sebaliknya, tulis: “untuk state saat ini, UI yang benar adalah ini.” Itu sebabnya data turunan seperti hasil filter dan ticket terpilih sebaiknya dihitung saat render. ([React][8])
+
+```jsx
+const filteredTickets = tickets.filter((ticket) => {
+  const matchQuery = ticket.title.toLowerCase().includes(query.toLowerCase());
+  const matchStatus = statusFilter === "all" || ticket.status === statusFilter;
+
+  return matchQuery && matchStatus;
+});
+
+const selectedTicket =
+  tickets.find((ticket) => ticket.id === selectedId) ?? null;
+```
+
+Untuk render list dan kondisi, React memang mendorong penggunaan JavaScript biasa seperti `map`, `filter`, ternary, atau `&&`. Daftar biasanya dirender dari array data, dan UI kondisional cukup diekspresikan di JSX. ([React][9])
+
+```jsx
+<ul>
+  {filteredTickets.map((ticket) => (
+    <TicketRow
+      key={ticket.id}
+      ticket={ticket}
+      isSelected={ticket.id === selectedId}
+      onSelect={() => setSelectedId(ticket.id)}
+    />
+  ))}
+</ul>;
+
+{
+  selectedTicket ? (
+    <TicketDetail ticket={selectedTicket} />
+  ) : (
+    <p>Pilih tiket untuk melihat detail.</p>
+  );
+}
+```
+
+Catatan senior yang sangat penting: `key` bukan sekadar untuk menghilangkan warning. React memakai posisi komponen di tree untuk melacak state, dan perubahan `key` bisa membuat subtree dibuat ulang sehingga state-nya reset. Ini berguna, misalnya, saat kamu ingin reset form ketika record berganti. ([React][10])
+
+---
+
+## Adegan 4 — Props turun, intent naik
+
+Beberapa komponen butuh berubah bersama. `TicketList` perlu tahu item mana yang aktif. `TicketDetail` perlu tahu tiket mana yang dipilih. Solusi standar React: pindahkan state itu ke common parent terdekat, lalu teruskan ke bawah melalui props. Itulah “lifting state up”. Parent mengalirkan data ke child, child mengirim intent kembali lewat callback prop. ([React][11])
+
+```jsx
+function HelpdeskApp() {
+  const [selectedId, setSelectedId] = useState(1);
+
+  return (
+    <>
+      <TicketList
+        tickets={filteredTickets}
+        selectedId={selectedId}
+        onSelect={setSelectedId}
+      />
+
+      <TicketDetail
+        ticket={selectedTicket}
+        onToggleStatus={() => handleToggleStatus(selectedId)}
+      />
+    </>
+  );
+}
+```
+
+Saat mengubah array atau object di state, pakai update yang immutable. React docs menekankan props dan state diperlakukan immutable; jangan mutate langsung lalu berharap render “mengerti sendiri”. Buat nilai baru. ([React][12])
+
+```jsx
+function handleToggleStatus(id) {
+  setTickets((prevTickets) =>
+    prevTickets.map((ticket) =>
+      ticket.id === id
+        ? {
+            ...ticket,
+            status: ticket.status === "open" ? "closed" : "open",
+          }
+        : ticket,
+    ),
+  );
+}
+```
+
+---
+
+## Adegan 5 — `useEffect` itu pintu keluar ke dunia luar
+
+Ini bagian yang paling sering bikin senior programmer tersandung saat balik ke React modern.
+
+`useEffect` **bukan** tempat “menaruh logic setelah render”. `useEffect` adalah tempat sinkronisasi dengan sistem di luar React: subscription, koneksi, DOM API non-React, analytics, local storage, network sync yang terjadi karena component tampil, dan sejenisnya. Render code tetap pure; event handler menangani aksi user; effect menyambungkan React dengan dunia luar. ([React][5])
+
+Contoh yang **salah**: menyimpan hasil filter ke state tambahan lewat effect.
+
+```jsx
+const [filteredTickets, setFilteredTickets] = useState([]);
+
+useEffect(() => {
+  setFilteredTickets(
+    tickets.filter((ticket) => {
+      const matchQuery = ticket.title
+        .toLowerCase()
+        .includes(query.toLowerCase());
+      const matchStatus =
+        statusFilter === "all" || ticket.status === statusFilter;
+      return matchQuery && matchStatus;
+    }),
+  );
+}, [tickets, query, statusFilter]);
+```
+
+Kenapa salah? Karena `filteredTickets` adalah **derived data**. Ia bisa dihitung langsung saat render. Effect di sini hanya menambah state ganda dan membuka pintu race condition yang tidak perlu. React docs secara eksplisit menekankan render harus pure, dan state yang redundant mudah jadi sumber bug. ([React][5])
+
+Contoh yang **benar**: sinkronkan jumlah tiket open ke `document.title`.
+
+```jsx
+const openCount = tickets.filter((ticket) => ticket.status === "open").length;
+
+useEffect(() => {
+  document.title = `Helpdesk (${openCount} open)`;
+}, [openCount]);
+```
+
+Kalau effect-mu membuat subscription atau koneksi, selalu kembalikan cleanup. Di development, React memang bisa menjalankan urutan setup → cleanup → setup untuk menemukan bug. Solusinya bukan “memaksa effect cuma jalan sekali”, melainkan memastikan effect aman saat di-remount. ([React][5])
+
+```jsx
+useEffect(() => {
+  const connection = createConnection(roomId);
+  connection.connect();
+
+  return () => {
+    connection.disconnect();
+  };
+}, [roomId]);
+```
+
+---
+
+## Adegan 6 — Saat state logic mulai beranak-pinak
+
+Begitu handler mulai banyak dan transisi state makin kompleks, `useReducer` biasanya lebih enak daripada banyak `setState` yang tersebar. Reducer memusatkan state transition ke satu fungsi. Kalau data harus melewati banyak lapisan komponen dan mulai terasa seperti “prop drilling”, gunakan Context untuk melewatkan data lebih dalam tanpa terus menerus mem-forward props. ([React][13])
+
+```jsx
+import { useReducer } from "react";
+
+function ticketsReducer(state, action) {
+  switch (action.type) {
+    case "toggled":
+      return state.map((ticket) =>
+        ticket.id === action.id
+          ? {
+              ...ticket,
+              status: ticket.status === "open" ? "closed" : "open",
+            }
+          : ticket,
+      );
+    default:
+      return state;
+  }
+}
+
+function HelpdeskApp() {
+  const [tickets, dispatch] = useReducer(ticketsReducer, initialTickets);
+}
+```
+
+Dan satu aturan yang jangan dinegosiasi: Hooks dipanggil di top level komponen, bukan di `if`, `for`, callback, event handler, atau class. React mengandalkan urutan pemanggilan hook yang konsisten di setiap render. ([React][6])
+
+---
+
+## Versi final study case
+
+Berikut versi satu file yang menyatukan semua konsep di atas:
+
+```jsx
+import { useEffect, useState } from "react";
+
+const initialTickets = [
+  { id: 1, title: "Checkout gagal di Safari", status: "open", owner: "Dina" },
+  {
+    id: 2,
+    title: "Email reset password lambat",
+    status: "closed",
+    owner: "Fikri",
+  },
+  {
+    id: 3,
+    title: "Promo code ter-apply dua kali",
+    status: "open",
+    owner: "Raka",
+  },
+];
+
+export default function HelpdeskApp() {
+  const [tickets, setTickets] = useState(initialTickets);
+  const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [selectedId, setSelectedId] = useState(initialTickets[0]?.id ?? null);
+
+  const filteredTickets = tickets.filter((ticket) => {
+    const matchQuery = ticket.title.toLowerCase().includes(query.toLowerCase());
+    const matchStatus =
+      statusFilter === "all" || ticket.status === statusFilter;
+    return matchQuery && matchStatus;
+  });
+
+  const selectedTicket =
+    tickets.find((ticket) => ticket.id === selectedId) ?? null;
+
+  const openCount = tickets.filter((ticket) => ticket.status === "open").length;
+
+  useEffect(() => {
+    document.title = `Helpdesk (${openCount} open)`;
+  }, [openCount]);
+
+  function handleToggleStatus(id) {
+    setTickets((prevTickets) =>
+      prevTickets.map((ticket) =>
+        ticket.id === id
+          ? {
+              ...ticket,
+              status: ticket.status === "open" ? "closed" : "open",
+            }
+          : ticket,
+      ),
+    );
+  }
+
+  return (
+    <div style={{ fontFamily: "sans-serif", padding: 24 }}>
+      <h1>Helpdesk Dashboard</h1>
+      <p>{openCount} tiket masih open</p>
+
+      <FilterBar
+        query={query}
+        statusFilter={statusFilter}
+        onQueryChange={setQuery}
+        onStatusChange={setStatusFilter}
+      />
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+        <TicketList
+          tickets={filteredTickets}
+          selectedId={selectedId}
+          onSelect={setSelectedId}
+        />
+
+        <TicketDetail
+          ticket={selectedTicket}
+          onToggle={() => {
+            if (selectedTicket) handleToggleStatus(selectedTicket.id);
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function FilterBar({ query, statusFilter, onQueryChange, onStatusChange }) {
+  return (
+    <div style={{ display: "flex", gap: 12, marginBottom: 16 }}>
+      <input
+        value={query}
+        onChange={(e) => onQueryChange(e.target.value)}
+        placeholder="Cari tiket..."
+      />
+
+      <select
+        value={statusFilter}
+        onChange={(e) => onStatusChange(e.target.value)}
+      >
+        <option value="all">Semua</option>
+        <option value="open">Open</option>
+        <option value="closed">Closed</option>
+      </select>
+    </div>
+  );
+}
+
+function TicketList({ tickets, selectedId, onSelect }) {
+  if (tickets.length === 0) {
+    return <p>Tidak ada tiket yang cocok dengan filter.</p>;
+  }
+
+  return (
+    <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+      {tickets.map((ticket) => (
+        <li key={ticket.id} style={{ marginBottom: 8 }}>
+          <button
+            onClick={() => onSelect(ticket.id)}
+            style={{
+              width: "100%",
+              textAlign: "left",
+              padding: 12,
+              fontWeight: ticket.id === selectedId ? "bold" : "normal",
+            }}
+          >
+            {ticket.title} — {ticket.status}
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function TicketDetail({ ticket, onToggle }) {
+  if (!ticket) {
+    return <p>Pilih tiket untuk melihat detail.</p>;
+  }
+
+  return (
+    <section style={{ border: "1px solid #ddd", padding: 16 }}>
+      <h2>{ticket.title}</h2>
+      <p>Owner: {ticket.owner}</p>
+      <p>Status: {ticket.status}</p>
+      <button onClick={onToggle}>
+        {ticket.status === "open" ? "Tutup tiket" : "Buka lagi"}
+      </button>
+    </section>
+  );
+}
+```
+
+Dalam contoh final ini, state yang disimpan hanya yang benar-benar perlu: `tickets`, `query`, `statusFilter`, dan `selectedId`. `filteredTickets`, `selectedTicket`, dan `openCount` dihitung saat render. Update array dilakukan secara immutable. `useEffect` dipakai hanya untuk sinkronisasi ke luar, yaitu `document.title`. Itu tepat sekali sesuai mental model React modern. ([React][8])
+
+---
+
+## Ringkasan yang perlu menempel di kepala
+
+React modern paling sehat dipakai dengan mantra ini: **UI = f(state)**. Pecah UI jadi komponen, alirkan data lewat props, simpan state seminimal mungkin, hitung data turunan saat render, pakai event handler untuk aksi user, dan pakai Effect hanya untuk sinkronisasi eksternal. Saat state logic mulai ribet, naikkan ke reducer; saat data perlu menembus banyak lapisan, pertimbangkan context. ([React][2])
+
+Satu catatan terakhir yang penting untuk refresh 2026: React sendiri hanyalah library UI; untuk aplikasi penuh dengan routing dan data fetching, docs resmi sekarang merekomendasikan full-stack React framework seperti Next.js atau React Router. ([React][14])

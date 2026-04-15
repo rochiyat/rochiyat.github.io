@@ -2,11 +2,6 @@ import React from 'react'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 
 const config: DocsThemeConfig = {
-  components: {
-    // Avoid invalid nested <p> in MDX compositions (common hydration mismatch source).
-    // Using <div> preserves layout while keeping HTML valid.
-    p: ({ children, ...props }) => <div {...props}>{children}</div>,
-  },
   logo: (
     <span style={{ fontWeight: 650, fontSize: '1.05rem', letterSpacing: '-0.01em' }}>Rochiyat</span>
   ),
@@ -71,7 +66,9 @@ const config: DocsThemeConfig = {
       <meta property="og:image" content="/images/og-image.png" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@rochiyat" />
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      <link rel="alternate icon" href="/favicon.ico" />
+      <link rel="shortcut icon" href="/favicon.ico" />
     </>
   ),
   primaryHue: 217,
