@@ -32,19 +32,19 @@ export function Hero({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           {subtitle && (
-            <div className="text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-600 dark:text-slate-400">
               {subtitle}
             </div>
           )}
-          <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
-            <span className="gradient-text">{title}</span>
+          <h1 className="mt-5 text-4xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-5xl md:text-6xl">
+            {title}
           </h1>
-          <div className="mx-auto mt-6 max-w-2xl text-lg text-gray-600 dark:text-gray-400">
+          <div className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-400 sm:text-lg">
             {description}
           </div>
           
           {(primaryCTA || secondaryCTA) && (
-            <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center items-center">
               {primaryCTA && (
                 <a href={primaryCTA.href}>
                   <Button variant="primary" size="lg">
@@ -63,13 +63,13 @@ export function Hero({
           )}
 
           {stats && stats.length > 0 && (
-            <div className="mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
+            <div className="mt-14 grid grid-cols-2 gap-8 md:grid-cols-4">
               {stats.map((stat, index) => (
                 <div key={index} className="fade-in">
-                  <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                  <div className="text-3xl font-semibold text-slate-900 dark:text-white">
                     {stat.value}
                   </div>
-                  <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="mt-2 text-sm text-slate-600 dark:text-slate-400">
                     {stat.label}
                   </div>
                 </div>

@@ -8,16 +8,7 @@ const config: DocsThemeConfig = {
     p: ({ children, ...props }) => <div {...props}>{children}</div>,
   },
   logo: (
-    <span style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
-      <span style={{ 
-        background: 'linear-gradient(90deg, #3b82f6, #8b5cf6)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text'
-      }}>
-        Rochiyat
-      </span>
-    </span>
+    <span style={{ fontWeight: 650, fontSize: '1.05rem', letterSpacing: '-0.01em' }}>Rochiyat</span>
   ),
   project: {
     link: 'https://github.com/rochiyat',

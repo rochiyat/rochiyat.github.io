@@ -2,20 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+
 @layer base {
   :root {
-    --primary: 217 91% 60%;
+    --primary: 222 47% 11%;
     --primary-foreground: 0 0% 100%;
   }
   
   .dark {
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 222 47% 11%;
   }
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+h1, h2, h3 {
+  font-family: "Fraunces", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  letter-spacing: -0.02em;
 }
 
 .line-clamp-2 {
@@ -33,10 +45,10 @@ html {
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: currentColor;
+  background-clip: initial;
 }
 
 .floating {
